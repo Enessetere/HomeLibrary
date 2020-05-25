@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #9c7152;
+}
+
+h1 {
+  font-size: 32px;
+  font-family: "Book Antiqua", serif;
+  color: #7c5132;
+  width: 100%;
+  background-color: white;
+  text-align: center;
+  height: 10%;
+}
+
+#nav-bar {
+  height: 10%;
+  width: 100%;
+}
+
+#content {
+  height: 70%;
+  width: 100%;
+}
+
+#footer {
+  position: relative;
+  alignment: bottom;
+  height: 10%;
+  width: 100%;
+}
