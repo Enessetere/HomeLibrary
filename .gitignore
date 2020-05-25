@@ -2,3 +2,4 @@
 /HomeLibraryCore/tar*
 .idea/*
 /HomeLibraryWeb/node*
+/HomeLibraryCore/reminder.txt

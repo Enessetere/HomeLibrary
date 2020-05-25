@@ -6,6 +6,7 @@ import com.smolderingdrake.homelibrarycore.model.AuthorDto;
 import com.smolderingdrake.homelibrarycore.model.AuthorModel;
 import com.smolderingdrake.homelibrarycore.model.AuthorModels;
 import com.smolderingdrake.homelibrarycore.repository.AuthorRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -44,6 +45,18 @@ public class AuthorService {
         return authorRepository.findById(index).orElseThrow();      //TODO: exception handler
     }
 
+    public AuthorModel createNewAuthor(final AuthorModel authorModel) {
+        final CompositeKey index = buildCompositeKey(authorModel.getFirstName(), authorModel.getLastName());
+        isAuthorNotExisting(index);
+        final Author author = authorDto.authorModelToAuthor(authorModel);
+        authorRepository.save(author);
+        return authorModel;
+    }
 
+    private void isAuthorNotExisting(final CompositeKey index) {
+        authorRepository.findById(index).ifPresent(author -> {
+            throw new RuntimeException("Author " + index + " does exist");  //TODO: exception handler
+        });
+    }
 
 }
