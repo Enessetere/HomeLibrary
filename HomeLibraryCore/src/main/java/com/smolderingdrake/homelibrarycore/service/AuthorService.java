@@ -51,13 +51,13 @@ public class AuthorService {
     }
 
     public AuthorModel createNewAuthor(final AuthorModel authorModel) {
-        isAuthorExist(authorModel.getFirstName(), authorModel.getLastName());
+        isAuthorExist(authorModel);
         final Author author = authorDto.authorModelToAuthor(authorModel);
         authorRepository.save(author);
         return authorModel;
     }
-    private void isAuthorExist(final String firstName, final String lastName) {
-        authorRepository.findByFirstNameAndLastName(firstName, lastName).ifPresent(author -> {
+    private void isAuthorExist(final AuthorModel authorModel) {
+        authorRepository.findByFirstNameAndLastName(authorModel.getLastName(), authorModel.getFirstName()).ifPresent(author -> {
             throw new RuntimeException();                                                               //TODO: exception handler
         });
     }
@@ -65,6 +65,18 @@ public class AuthorService {
     public void deleteAuthor(final String fullName) {
         final Author existingAuthor = getExistingAuthorDispatcher(fullName);
         authorRepository.delete(existingAuthor);
+    }
+
+    public void editAuthor(final String fullName, final AuthorModel authorModel) {
+        final Author existingAuthor = getExistingAuthorDispatcher(fullName);
+        if (!existingAuthor.getLastName().equals(authorModel.getLastName())) {
+            isAuthorExist(authorModel);
+            authorRepository.delete(existingAuthor);
+            authorRepository.save(authorDto.authorModelToAuthor(authorModel));
+        } else {
+            existingAuthor.setFirstName(authorModel.getFirstName());
+            authorRepository.save(existingAuthor);
+        }
     }
 
     //TODO: Unit tests for AuthorService

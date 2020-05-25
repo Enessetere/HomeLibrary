@@ -41,6 +41,12 @@ public class AuthorController {
     }
 
     //TODO: PUT Request
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{fullName}")
+    public void changeAuthor(@PathVariable final String fullName, @Valid @RequestBody final AuthorModel authorModel) {
+        authorService.editAuthor(fullName, authorModel);
+    }
+
     //TODO: PATCH Request
     //TODO: Unit Tests for AuthorController
 }
