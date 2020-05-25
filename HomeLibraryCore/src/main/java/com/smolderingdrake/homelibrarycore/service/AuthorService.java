@@ -47,7 +47,7 @@ public class AuthorService {
     }
 
     private Author getExistingAuthor(final String lastName) {
-        return authorRepository.findByLastNameAndFirstNameIsNull(lastName).orElseThrow();                                 //TODO: exception handler
+        return authorRepository.findByLastNameAndFirstNameIsNull(lastName).orElseThrow();                //TODO: exception handler
     }
 
     public AuthorModel createNewAuthor(final AuthorModel authorModel) {
