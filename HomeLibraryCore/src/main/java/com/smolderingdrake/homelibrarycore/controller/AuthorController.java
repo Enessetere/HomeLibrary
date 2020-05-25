@@ -39,4 +39,8 @@ public class AuthorController {
     public void deleteAuthor(@PathVariable final String fullName) {
         authorService.deleteAuthor(fullName);
     }
+
+    //TODO: PUT Request
+    //TODO: PATCH Request
+    //TODO: Unit Tests for AuthorController
 }
