@@ -7,10 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/api/authors")
@@ -27,14 +23,20 @@ public class AuthorController {
         return authorService.getAllAuthors();
     }
 
-    @GetMapping("/{firstName}-{lastName}")
-    public AuthorModel getByName(@PathVariable final String firstName, @PathVariable final String lastName) {
-        return authorService.getAuthorByName(firstName, lastName);
+    @GetMapping("/{fullName}")
+    public AuthorModel getByName(@PathVariable final String fullName) {
+        return authorService.getAuthorByName(fullName);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public AuthorModel createNewAuthor(@Valid @RequestBody final AuthorModel authorModel) {
         return authorService.createNewAuthor(authorModel);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{fullName}")
+    public void deleteAuthor(@PathVariable final String fullName) {
+        authorService.deleteAuthor(fullName);
     }
 }
