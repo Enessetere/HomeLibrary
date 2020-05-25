@@ -79,5 +79,12 @@ public class AuthorService {
         }
     }
 
+    public void editAuthorFields(final String fullName, final AuthorModel authorModel) {
+        final Author author = getExistingAuthorDispatcher(fullName);
+        if (author.getLastName().equals(authorModel.getLastName())) {
+            author.setFirstName(authorModel.getFirstName());
+        }
+    }
+
     //TODO: Unit tests for AuthorService
 }

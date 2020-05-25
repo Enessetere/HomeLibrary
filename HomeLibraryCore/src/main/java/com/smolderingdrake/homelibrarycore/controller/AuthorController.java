@@ -40,13 +40,18 @@ public class AuthorController {
         authorService.deleteAuthor(fullName);
     }
 
-    //TODO: PUT Request
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{fullName}")
     public void changeAuthor(@PathVariable final String fullName, @Valid @RequestBody final AuthorModel authorModel) {
         authorService.editAuthor(fullName, authorModel);
     }
 
-    //TODO: PATCH Request
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/{fullName}")
+    public void changeAuthorFields(@PathVariable final String fullName, @Valid @RequestBody final AuthorModel authorModel) {
+        authorService.editAuthorFields(fullName, authorModel);
+    }
+
+
     //TODO: Unit Tests for AuthorController
 }
