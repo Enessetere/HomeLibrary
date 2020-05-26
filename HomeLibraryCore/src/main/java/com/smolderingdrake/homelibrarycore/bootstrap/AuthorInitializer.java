@@ -17,8 +17,8 @@ public class AuthorInitializer implements ApplicationListener<ContextRefreshedEv
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        authorRepository.save(new Author("Adam", "Mickiewicz"));
-        authorRepository.save(new Author("Henryk", "Sienkiewicz"));
-        authorRepository.save(new Author("Simon", "Beckett"));
+        authorRepository.save(Author.builder().firstName("Adam").lastName("Mickiewicz").build());
+        authorRepository.save(Author.builder().firstName("Henryk").lastName("Sienkiewicz").build());
+        authorRepository.save(Author.builder().firstName("Simon").lastName("Beckett").build());
     }
 }

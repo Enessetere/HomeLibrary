@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+import static java.util.Objects.nonNull;
+
 @Service
 public class AuthorService {
 
@@ -26,65 +28,62 @@ public class AuthorService {
                 .collect(Collectors.toList()));
     }
 
-    public AuthorModel getAuthorByName(final String fullName) {
-        final Author existingAuthor = getExistingAuthorDispatcher(fullName);
+    public AuthorModel getByIdx(final Long idx) {
+        final Author existingAuthor = getExistingAuthor(idx);
         return authorDto.authorToAuthorModel(existingAuthor);
     }
 
-    private Author getExistingAuthorDispatcher(final String fullName) {
-        final String[] name = fullName.split("-");
-        if (name.length == 2) {
-            return getExistingAuthor(name[1], name[0]);
-        }
-        if (name.length == 1) {
-            return getExistingAuthor(name[0]);
-        }
-        throw new RuntimeException();                                                                   //TODO: exception handler
-    }
-
-    private Author getExistingAuthor(final String firstName, final String lastName) {
-        return authorRepository.findByFirstNameAndLastName(firstName, lastName).orElseThrow();          //TODO: exception handler
-    }
-
-    private Author getExistingAuthor(final String lastName) {
-        return authorRepository.findByLastNameAndFirstNameIsNull(lastName).orElseThrow();                //TODO: exception handler
+    private Author getExistingAuthor(final Long idx) {
+        return authorRepository.findById(idx).orElseThrow();
     }
 
     public AuthorModel createNewAuthor(final AuthorModel authorModel) {
-        isAuthorExist(authorModel);
-        final Author author = authorDto.authorModelToAuthor(authorModel);
-        authorRepository.save(author);
+        if (isAuthorExisting(authorModel)) {
+            throw new RuntimeException();
+        }
+        authorModel.setIdx(createAndReturnIdx(authorModel));
         return authorModel;
     }
-    private void isAuthorExist(final AuthorModel authorModel) {
-        authorRepository.findByFirstNameAndLastName(authorModel.getLastName(), authorModel.getFirstName()).ifPresent(author -> {
-            throw new RuntimeException();                                                               //TODO: exception handler
-        });
+
+    private boolean isAuthorExisting(final AuthorModel authorModel) {
+        return authorRepository.findByFirstNameAndLastName(authorModel.getFirstName(), authorModel.getLastName()).isPresent();
     }
 
-    public void deleteAuthor(final String fullName) {
-        final Author existingAuthor = getExistingAuthorDispatcher(fullName);
+    private Long createAndReturnIdx(final AuthorModel authorModel) {
+        return authorRepository.save(authorDto.authorModelToAuthor(authorModel)).getIdx();
+    }
+
+    public void deleteAuthor(final Long idx) {
+        final Author existingAuthor = getExistingAuthor(idx);
         authorRepository.delete(existingAuthor);
     }
 
-    public void editAuthor(final String fullName, final AuthorModel authorModel) {
-        final Author existingAuthor = getExistingAuthorDispatcher(fullName);
-        if (!existingAuthor.getLastName().equals(authorModel.getLastName())) {
-            isAuthorExist(authorModel);
-            authorRepository.delete(existingAuthor);
-            authorRepository.save(authorDto.authorModelToAuthor(authorModel));
-        } else {
+    public void editAuthor(final Long idx, final AuthorModel authorModel) {
+        final Author existingAuthor = getExistingAuthor(idx);
+        if (!authorModel.isEqualTo(existingAuthor) && !isAuthorExisting(authorModel)) {
             existingAuthor.setFirstName(authorModel.getFirstName());
+            existingAuthor.setLastName(authorModel.getLastName());
             authorRepository.save(existingAuthor);
+        } else {
+            throw new RuntimeException();
         }
     }
 
-    public void editAuthorFields(final String fullName, final AuthorModel authorModel) {
-        final Author author = getExistingAuthorDispatcher(fullName);
-        if (author.getLastName().equals(authorModel.getLastName())) {
-            author.setFirstName(authorModel.getFirstName());
+    public void editAuthorFields(final Long idx, final AuthorModel authorModel) {
+        final Author existingAuthor = getExistingAuthor(idx);
+        if (!authorModel.isEqualTo(existingAuthor) && !isAuthorExisting(authorModel)) {
+            if (nonNull(authorModel.getFirstName())) {
+                existingAuthor.setFirstName(authorModel.getFirstName());
+            }
+            if (nonNull(authorModel.getLastName())) {
+                existingAuthor.setLastName(authorModel.getLastName());
+            }
+            authorRepository.save(existingAuthor);
+        } else {
+            throw new RuntimeException();
         }
     }
+
 
     //TODO: Unit tests for AuthorService
 }

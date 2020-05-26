@@ -23,9 +23,9 @@ public class AuthorController {
         return authorService.getAllAuthors();
     }
 
-    @GetMapping("/{fullName}")
-    public AuthorModel getByName(@PathVariable final String fullName) {
-        return authorService.getAuthorByName(fullName);
+    @GetMapping("/{idx}")
+    public AuthorModel getByName(@PathVariable final Long idx) {
+        return authorService.getByIdx(idx);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -35,21 +35,21 @@ public class AuthorController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{fullName}")
-    public void deleteAuthor(@PathVariable final String fullName) {
-        authorService.deleteAuthor(fullName);
+    @DeleteMapping("/{idx}")
+    public void deleteAuthor(@PathVariable final Long idx) {
+        authorService.deleteAuthor(idx);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping("/{fullName}")
-    public void changeAuthor(@PathVariable final String fullName, @Valid @RequestBody final AuthorModel authorModel) {
-        authorService.editAuthor(fullName, authorModel);
+    @PutMapping("/{idx}")
+    public void changeAuthor(@PathVariable final Long idx, @Valid @RequestBody final AuthorModel authorModel) {
+        authorService.editAuthor(idx, authorModel);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/{fullName}")
-    public void changeAuthorFields(@PathVariable final String fullName, @Valid @RequestBody final AuthorModel authorModel) {
-        authorService.editAuthorFields(fullName, authorModel);
+    @PatchMapping("/{idx}")
+    public void changeAuthorFields(@PathVariable final Long idx, @RequestBody final AuthorModel authorModel) {
+        authorService.editAuthorFields(idx, authorModel);
     }
 
 
