@@ -19,7 +19,7 @@ public class AuthorModel {
     private Long idx;
 
     @Nullable
-    @Length(max = 50, message = "First name should have up to 50 characters")
+    @Length(min = 2, max = 50, message = "First name should have up to 50 characters")
     private String firstName;
 
     @NotNull(message = "Last name cannot be empty")

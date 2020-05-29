@@ -1,12 +1,14 @@
 package com.smolderingdrake.homelibrarycore.service;
 
 import com.smolderingdrake.homelibrarycore.domain.Author;
+import com.smolderingdrake.homelibrarycore.exception.AuthorException;
 import com.smolderingdrake.homelibrarycore.model.AuthorDto;
 import com.smolderingdrake.homelibrarycore.model.AuthorModel;
 import com.smolderingdrake.homelibrarycore.model.AuthorModels;
 import com.smolderingdrake.homelibrarycore.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
@@ -34,12 +36,13 @@ public class AuthorService {
     }
 
     private Author getExistingAuthor(final Long idx) {
-        return authorRepository.findById(idx).orElseThrow();
+        return authorRepository.findById(idx)
+                .orElseThrow(() -> new NoSuchElementException("Author with idx " + idx + " does not exist"));
     }
 
     public AuthorModel createNewAuthor(final AuthorModel authorModel) {
         if (isAuthorExisting(authorModel)) {
-            throw new RuntimeException();
+            throw new AuthorException("Author with given details already exists");
         }
         authorModel.setIdx(createAndReturnIdx(authorModel));
         return authorModel;
@@ -65,7 +68,7 @@ public class AuthorService {
             existingAuthor.setLastName(authorModel.getLastName());
             authorRepository.save(existingAuthor);
         } else {
-            throw new RuntimeException();
+            throw new AuthorException("Author with given details already exists");
         }
     }
 
@@ -80,7 +83,7 @@ public class AuthorService {
             }
             authorRepository.save(existingAuthor);
         } else {
-            throw new RuntimeException();
+            throw new AuthorException("Author with given details already exists");
         }
     }
 
