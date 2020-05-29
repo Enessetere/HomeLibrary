@@ -24,7 +24,7 @@ public class AuthorController {
     }
 
     @GetMapping("/{idx}")
-    public AuthorModel getByName(@PathVariable final Long idx) {
+    public AuthorModel getByIdx(@PathVariable final Long idx) {
         return authorService.getByIdx(idx);
     }
 
