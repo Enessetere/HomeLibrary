@@ -44,6 +44,7 @@ public class AuthorService {
         if (isAuthorExisting(authorModel)) {
             throw new AuthorException("Author with given details already exists");
         }
+        authorModel.setIdx(null);
         authorModel.setIdx(createAndReturnIdx(authorModel));
         return authorModel;
     }

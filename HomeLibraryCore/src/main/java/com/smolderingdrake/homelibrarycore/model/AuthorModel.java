@@ -1,5 +1,6 @@
 package com.smolderingdrake.homelibrarycore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smolderingdrake.homelibrarycore.domain.Author;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.lang.Nullable;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.nonNull;
@@ -37,5 +39,13 @@ public class AuthorModel {
                 && author.getFirstName() == null
                 && this.lastName.equals(getLastName())
         );
+    }
+
+    @JsonIgnore
+    @AssertTrue(message = "First and last name should start with capital letter")
+    private boolean isNameValid() {
+        return  lastName != null
+                && (firstName == null || Character.isUpperCase(firstName.charAt(0)))
+                && Character.isUpperCase(lastName.charAt(0));
     }
 }
