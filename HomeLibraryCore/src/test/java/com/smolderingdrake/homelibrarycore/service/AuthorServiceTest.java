@@ -139,14 +139,57 @@ class AuthorServiceTest {
     }
 
     @Test
-    void shouldNotDeleteAuthorWithGivenNonExistIdx() {
+    void shouldThrowAuthorExceptionWithRedundantPutMethod() {
         final Long idx = 1L;
         final String firstName = "Jane";
         final String lastName = "Doe";
-        when(authorRepository.findById(idx)).thenReturn(Optional.empty());
+        final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
+        final AuthorModel input = AuthorModel.builder().firstName(firstName).lastName(lastName).build();
+        when(authorRepository.findById(idx)).thenReturn(Optional.of(author));
 
-        final NoSuchElementException exception = Assertions.assertThrows(NoSuchElementException.class, () -> authorService.deleteAuthor(idx));
+        final AuthorException exception = Assertions.assertThrows(AuthorException.class, () -> authorService.editAuthor(idx, input));
 
-        assertThat(exception).hasMessage("Author with idx " + idx + " does not exist");
+        assertThat(exception).hasMessage("Author with given details already exists");
+    }
+
+    @Test
+    void shouldProcessPutMethod() {
+        final Long idx = 1L;
+        final String firstName = "Jane";
+        final String newFirstName = "John";
+        final String lastName = "Doe";
+        final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
+        final AuthorModel input = AuthorModel.builder().firstName(newFirstName).lastName(lastName).build();
+        when(authorRepository.findById(idx)).thenReturn(Optional.of(author));
+
+        authorService.editAuthor(idx, input);
+    }
+
+    @Test
+    void shouldThrowAuthorExceptionWithRedundantPatchMethod() {
+        final Long idx = 1L;
+        final String firstName = "Jane";
+        final String lastName = "Doe";
+        final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
+        final AuthorModel input = AuthorModel.builder().firstName(firstName).lastName(lastName).build();
+        when(authorRepository.findById(idx)).thenReturn(Optional.of(author));
+
+        final AuthorException exception = Assertions.assertThrows(AuthorException.class, () -> authorService.editAuthorFields(idx, input));
+
+        assertThat(exception).hasMessage("Author with given details already exists");
+    }
+
+    @Test
+    void shouldProcessPatchMethod() {
+        final Long idx = 1L;
+        final String firstName = "Jane";
+        final String newFirstName = "John";
+        final String lastName = "Doe";
+        final String newLastName = "Dee";
+        final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
+        final AuthorModel input = AuthorModel.builder().firstName(newFirstName).lastName(newLastName).build();
+        when(authorRepository.findById(idx)).thenReturn(Optional.of(author));
+
+        authorService.editAuthorFields(idx, input);
     }
 }
