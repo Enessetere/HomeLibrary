@@ -1,6 +1,7 @@
 package com.smolderingdrake.homelibrarycore.service;
 
 import com.smolderingdrake.homelibrarycore.domain.Author;
+import com.smolderingdrake.homelibrarycore.exception.AuthorException;
 import com.smolderingdrake.homelibrarycore.model.AuthorDto;
 import com.smolderingdrake.homelibrarycore.model.AuthorModel;
 import com.smolderingdrake.homelibrarycore.model.AuthorModels;
@@ -17,6 +18,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.in;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -91,5 +93,37 @@ class AuthorServiceTest {
 
         final NoSuchElementException exception = Assertions.assertThrows(NoSuchElementException.class, () -> authorService.getByIdx(idx));
         assertThat(exception).hasMessage("Author with idx " + idx + " does not exist");
+    }
+
+    @Test
+    void shouldCreateNewAuthor() {
+        final Long idx = 5L;
+        final String firstName = "Jane";
+        final String lastName = "Doe";
+        final AuthorModel input = AuthorModel.builder().idx(idx).firstName(firstName).lastName(lastName).build();
+        final Author author = Author.builder().idx(1L).firstName(firstName).lastName(lastName).build();
+        when(authorRepository.save(author)).thenReturn(author);
+        when(authorDto.authorModelToAuthor(input)).thenReturn(author);
+        when(authorRepository.findByFirstNameAndLastName(firstName, lastName)).thenReturn(Optional.empty());
+
+        final AuthorModel result = authorService.createNewAuthor(input);
+
+        assertThat(result).isNotNull();
+        assertThat(result).isEqualTo(input);
+        assertThat(result.getIdx()).isEqualTo(1L);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenAuthorExist() {
+        final Long idx = 1L;
+        final String firstName = "Jane";
+        final String lastName = "Doe";
+        final AuthorModel input = AuthorModel.builder().firstName(firstName).lastName(lastName).build();
+        final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
+        when(authorRepository.findByFirstNameAndLastName(firstName, lastName)).thenReturn(Optional.of(author));
+
+        final AuthorException exception = Assertions.assertThrows(AuthorException.class, () -> authorService.createNewAuthor(input));
+
+        assertThat(exception).hasMessage("Author with given details already exists");
     }
 }
