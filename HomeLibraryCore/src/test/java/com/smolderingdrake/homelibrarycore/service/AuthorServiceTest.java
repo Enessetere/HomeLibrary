@@ -5,6 +5,7 @@ import com.smolderingdrake.homelibrarycore.model.AuthorDto;
 import com.smolderingdrake.homelibrarycore.model.AuthorModel;
 import com.smolderingdrake.homelibrarycore.model.AuthorModels;
 import com.smolderingdrake.homelibrarycore.repository.AuthorRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,30 +38,58 @@ class AuthorServiceTest {
         final AuthorModels allAuthors = authorService.getAllAuthors();
 
         assertThat(allAuthors).isNotNull();
-        assertThat(allAuthors).isExactlyInstanceOf(AuthorModels.class);
         assertThat(allAuthors.getAuthors()).isNotNull();
         assertThat(allAuthors.getAuthors()).hasSize(0);
     }
 
     @Test
     void shouldReturnAuthorModelsWithRecords() {
+        final Long first_idx = 1L;
+        final String first_firstName = "Jane";
+        final String first_lastName = "Doe";
+        final Author first_author = Author.builder().idx(first_idx).firstName(first_firstName).lastName(first_lastName).build();
+        final AuthorModel first_authorModel = AuthorModel.builder().idx(first_idx).firstName(first_firstName).lastName(first_lastName).build();
+        final Long second_idx = 2L;
+        final String second_firstName = "John";
+        final String second_lastName = "DoeDee";
+        final Author second_author = Author.builder().idx(second_idx).firstName(second_firstName).lastName(second_lastName).build();
+        final AuthorModel second_authorModel = AuthorModel.builder().idx(second_idx).firstName(second_firstName).lastName(second_lastName).build();
+
+        final List<Author> authors = List.of(first_author, second_author);
+        when(authorRepository.findAll()).thenReturn(authors);
+        when(authorDto.authorToAuthorModel(any(Author.class))).thenReturn(first_authorModel).thenReturn(second_authorModel);
+
+        final AuthorModels allAuthors = authorService.getAllAuthors();
+
+        assertThat(allAuthors).isNotNull();
+        assertThat(allAuthors.getAuthors()).isNotNull();
+        assertThat(allAuthors.getAuthors()).hasSize(2);
+        assertThat(allAuthors.getAuthors().get(0)).isEqualTo(first_authorModel);
+        assertThat(allAuthors.getAuthors().get(1)).isEqualTo(second_authorModel);
+    }
+
+    @Test
+    void shouldReturnAuthorModelWithCorrespondingIdx() {
         final Long idx = 1L;
         final String firstName = "Jane";
         final String lastName = "Doe";
         final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
         final AuthorModel authorModel = AuthorModel.builder().idx(idx).firstName(firstName).lastName(lastName).build();
+        when(authorRepository.findById(idx)).thenReturn(Optional.of(author));
+        when(authorDto.authorToAuthorModel(author)).thenReturn(authorModel);
 
-        final List<Author> authors = List.of(author);
-        when(authorRepository.findAll()).thenReturn(authors);
-        when(authorDto.authorToAuthorModel(any(Author.class))).thenReturn(authorModel);
+        final AuthorModel result = authorService.getByIdx(idx);
 
-        final AuthorModels allAuthors = authorService.getAllAuthors();
+        assertThat(result).isNotNull();
+        assertThat(result).isEqualTo(authorModel);
+    }
 
-        assertThat(allAuthors).isNotNull();
-        assertThat(allAuthors).isExactlyInstanceOf(AuthorModels.class);
-        assertThat(allAuthors.getAuthors()).isNotNull();
-        assertThat(allAuthors.getAuthors()).hasSize(1);
-        assertThat(allAuthors.getAuthors().get(0)).isExactlyInstanceOf(AuthorModel.class);
-        assertThat(allAuthors.getAuthors().get(0)).isEqualTo(authorModel);
+    @Test
+    void shouldThrowNoSuchElementExceptionWhileIndexOutOfRange() {
+        final Long idx = 1L;
+        when(authorRepository.findById(idx)).thenReturn(Optional.empty());
+
+        final NoSuchElementException exception = Assertions.assertThrows(NoSuchElementException.class, () -> authorService.getByIdx(idx));
+        assertThat(exception).hasMessage("Author with idx " + idx + " does not exist");
     }
 }
