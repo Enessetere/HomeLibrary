@@ -18,8 +18,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -125,5 +125,28 @@ class AuthorServiceTest {
         final AuthorException exception = Assertions.assertThrows(AuthorException.class, () -> authorService.createNewAuthor(input));
 
         assertThat(exception).hasMessage("Author with given details already exists");
+    }
+
+    @Test
+    void shouldDeleteAuthorWithGivenIdx() {
+        final Long idx = 1L;
+        final String firstName = "Jane";
+        final String lastName = "Doe";
+        final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
+        when(authorRepository.findById(idx)).thenReturn(Optional.of(author));
+
+        authorService.deleteAuthor(idx);
+    }
+
+    @Test
+    void shouldNotDeleteAuthorWithGivenNonExistIdx() {
+        final Long idx = 1L;
+        final String firstName = "Jane";
+        final String lastName = "Doe";
+        when(authorRepository.findById(idx)).thenReturn(Optional.empty());
+
+        final NoSuchElementException exception = Assertions.assertThrows(NoSuchElementException.class, () -> authorService.deleteAuthor(idx));
+
+        assertThat(exception).hasMessage("Author with idx " + idx + " does not exist");
     }
 }
