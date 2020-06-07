@@ -21,4 +21,7 @@ export class AuthorsComponent implements OnInit {
     });
   }
 
+  event() {
+    console.log('clicked');
+  }
 }

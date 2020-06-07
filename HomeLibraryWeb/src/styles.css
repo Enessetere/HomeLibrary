@@ -12,20 +12,3 @@ h1 {
   text-align: center;
   height: 10%;
 }
-
-#nav-bar {
-  height: 10%;
-  width: 100%;
-}
-
-#content {
-  height: 70%;
-  width: 100%;
-}
-
-#footer {
-  position: relative;
-  alignment: bottom;
-  height: 10%;
-  width: 100%;
-}

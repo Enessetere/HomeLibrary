@@ -3,11 +3,13 @@ import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {ContactUsComponent} from './contact-us/contact-us.component';
 import {AuthorsComponent} from './authors/authors.component';
+import {AuthorFormComponent} from './author-form/author-form.component';
 
 const routes: Routes = [
-  {path: `home`, component: HomeComponent},
+  {path: ``, component: HomeComponent},
   {path: `contact`, component: ContactUsComponent},
-  {path: `authors`, component: AuthorsComponent}
+  {path: `authors`, component: AuthorsComponent},
+  {path: `create_author`, component: AuthorFormComponent}
 ];
 
 @NgModule({

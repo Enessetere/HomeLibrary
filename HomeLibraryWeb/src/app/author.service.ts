@@ -1,9 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Author} from './author';
-import {HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {map, retry} from 'rxjs/operators';
-import {log} from 'util';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthorModel} from './author-model';
 
 @Injectable({
@@ -24,4 +21,7 @@ export class AuthorService {
     return this.http.get<AuthorModel>(this.apiUrl);
   }
 
+  sendData(author: Author) {
+    return this.http.post<Author>(this.apiUrl, JSON.stringify(author), {headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}});
+  }
 }

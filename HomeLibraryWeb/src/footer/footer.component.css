@@ -1,11 +1,10 @@
 #disclaimer {
   color: #707070;
-  position: fixed;
-  alignment: bottom;
   text-align: center;
   width: 100%;
   font-size: 12px;
   font-family: "Times New Roman", sans-serif;
+  margin: 20px auto 5px;
 }
 
 .links {

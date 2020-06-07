@@ -1,0 +1,9 @@
+<form class="author-form" #authorForm = "ngForm" (ngSubmit)="onClickSubmit(authorForm.value)">
+  <label for="firstName">First name: </label>
+  <input class="author-input" id="firstName" type="text" name="first_name" placeholder="First name" ngModel/>
+  <br/>
+  <label for="lastName">Last name: </label>
+  <input class="author-input" id="lastName" type="text" name="last_name" placeholder="Last name" ngModel/>
+  <br/>
+  <input class="author-save" type="submit" value="Save author"/>
+</form>

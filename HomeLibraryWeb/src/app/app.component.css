@@ -1,0 +1,23 @@
+.nav-bar {
+  text-align: center;
+}
+
+.nav-link {
+  font-family: "Book Antiqua", sans-serif;
+  font-style: italic;
+  font-size: 20px;
+  display: inline-flex;
+  background-color: #5c3112;
+  text-decoration: none;
+  color: #ac8162;
+  margin: 5px;
+  padding: 5px;
+  transition: 1s;
+  border-radius: 5px;
+}
+
+.nav-link:hover {
+  background-color: #7c5132;
+  color: #dcb192;
+  transition: 1s;
+}
