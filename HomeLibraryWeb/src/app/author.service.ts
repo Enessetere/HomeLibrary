@@ -21,6 +21,10 @@ export class AuthorService {
     return this.http.get<AuthorModel>(this.apiUrl);
   }
 
+  getSingleRecord(idx: number) {
+    return this.http.get<Author>(this.apiUrl + '/' + idx);
+  }
+
   sendData(author: Author) {
     return this.http.post<Author>(this.apiUrl, JSON.stringify(author), {headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}});
   }

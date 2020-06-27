@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthorService} from '../author.service';
 import {Author} from '../author';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-authors',
@@ -12,7 +13,7 @@ export class AuthorsComponent implements OnInit {
   tmp = [];
   authors: Author[] = [];
 
-  constructor(private authorService: AuthorService) { }
+  constructor(private authorService: AuthorService, private router: Router) { }
 
   ngOnInit() {
     this.authorService.getData().subscribe((data) => {
@@ -21,7 +22,7 @@ export class AuthorsComponent implements OnInit {
     });
   }
 
-  event() {
-    console.log('clicked');
+  event(author: Author) {
+    this.router.navigate(['authors', author.idx]).then();
   }
 }

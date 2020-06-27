@@ -10,6 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AuthorService} from './author.service';
 import {AuthorFormComponent} from './author-form/author-form.component';
 import {FormsModule} from '@angular/forms';
+import { AuthorComponent } from './author/author.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {FormsModule} from '@angular/forms';
     ContactUsComponent,
     AuthorsComponent,
     RoutingComponent,
-    AuthorFormComponent
+    AuthorFormComponent,
+    AuthorComponent
   ],
   imports: [
     BrowserModule,

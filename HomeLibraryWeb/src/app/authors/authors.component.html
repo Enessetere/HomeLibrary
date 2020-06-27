@@ -7,10 +7,10 @@
   </tr>
   </thead>
   <tbody>
-  <tr class="author_list" *ngFor="let author of authors" (click)="event()">
+  <tr class="author_list" *ngFor="let author of authors" (click)="event(author)">
     <td> {{author.idx}}</td>
-    <td> {{author.first_name}}</td>
-    <td> {{author.last_name}}</td>
+    <td> {{author.firstName}}</td>
+    <td> {{author.lastName}}</td>
   </tr>
   </tbody>
 </table>

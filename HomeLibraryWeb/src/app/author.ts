@@ -1,5 +1,11 @@
 export class Author {
   idx: bigint;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
+
+  convert(singleAuthorArray) {
+    this.idx = singleAuthorArray[0];
+    this.firstName = singleAuthorArray[1];
+    this.lastName = singleAuthorArray[2];
+  }
 }

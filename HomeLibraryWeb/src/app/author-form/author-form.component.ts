@@ -17,8 +17,8 @@ export class AuthorFormComponent implements OnInit {
 
   onClickSubmit(authorForm) {
     const author: Author = new Author();
-    author.first_name = authorForm.first_name;
-    author.last_name = authorForm.last_name;
+    author.firstName = authorForm.first_name;
+    author.lastName = authorForm.last_name;
     this.authorService.sendData(author).subscribe();
     this.router.navigate(['/authors']).catch(reason => console.log(reason));
   }
