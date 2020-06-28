@@ -12,6 +12,7 @@ import {AuthorFormComponent} from './author-form/author-form.component';
 import {FormsModule} from '@angular/forms';
 import { AuthorComponent } from './author/author.component';
 import { AuthorCreatedComponent } from './author-created/author-created.component';
+import { AuthorFailureComponent } from './author-failure/author-failure.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AuthorCreatedComponent } from './author-created/author-created.componen
     RoutingComponent,
     AuthorFormComponent,
     AuthorComponent,
-    AuthorCreatedComponent
+    AuthorCreatedComponent,
+    AuthorFailureComponent
   ],
   imports: [
     BrowserModule,

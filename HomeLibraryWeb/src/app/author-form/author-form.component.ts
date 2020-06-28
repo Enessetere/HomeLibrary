@@ -19,7 +19,12 @@ export class AuthorFormComponent implements OnInit {
     const author: Author = new Author();
     author.firstName = authorForm.first_name;
     author.lastName = authorForm.last_name;
-    this.authorService.sendData(author).subscribe();
-    this.router.navigate(['authors/success']).then();
+    const subscription = this.authorService.sendData(author).subscribe(res => console.log(res));
+    console.log(subscription);
+    if (subscription instanceof ErrorEvent) {
+      this.router.navigate(['authors/failure'], {state: {data: author, error: subscription.message}}).then();
+    } else {
+      this.router.navigate(['authors/success'], {state: {data: author}}).then();
+    }
   }
 }

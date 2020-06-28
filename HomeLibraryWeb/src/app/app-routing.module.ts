@@ -6,6 +6,7 @@ import {AuthorsComponent} from './authors/authors.component';
 import {AuthorFormComponent} from './author-form/author-form.component';
 import {AuthorComponent} from './author/author.component';
 import {AuthorCreatedComponent} from './author-created/author-created.component';
+import {AuthorFailureComponent} from './author-failure/author-failure.component';
 
 const routes: Routes = [
   {path: ``, component: HomeComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: `authors`, component: AuthorsComponent},
   {path: `create_author`, component: AuthorFormComponent},
   {path: 'authors/success', component: AuthorCreatedComponent},
+  {path: 'authors/failure', component: AuthorFailureComponent},
   {path: 'authors/:idx', component: AuthorComponent}
 ];
 
