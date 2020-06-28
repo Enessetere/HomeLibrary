@@ -14,7 +14,7 @@
 }
 
 .author_list:hover {
-  cursor: default;
+  cursor: pointer;
   background-color: #dcb192;
   color: #3c1100;
   transition: 1s;
@@ -55,6 +55,7 @@ td{
   transition: 1s;
   background-color: #7c5132;
   color: #dcb192;
+  cursor: pointer;
 }
 
 .buttons {

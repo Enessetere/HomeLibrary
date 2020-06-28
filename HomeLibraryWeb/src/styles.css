@@ -12,3 +12,20 @@ h1 {
   text-align: center;
   height: 10%;
 }
+
+.author {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Book Antiqua", sans-serif;
+  text-align: center;
+  cursor: default;
+}
+
+.return {
+  color: #1c0100;
+}
+
+.return:hover {
+  cursor: pointer;
+}

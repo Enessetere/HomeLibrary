@@ -20,6 +20,6 @@ export class AuthorFormComponent implements OnInit {
     author.firstName = authorForm.first_name;
     author.lastName = authorForm.last_name;
     this.authorService.sendData(author).subscribe();
-    this.router.navigate(['/authors']).catch(reason => console.log(reason));
+    this.router.navigate(['authors/success']).then();
   }
 }

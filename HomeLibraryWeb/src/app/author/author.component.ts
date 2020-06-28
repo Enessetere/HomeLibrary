@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthorService} from '../author.service';
 import {Author} from '../author';
 
@@ -12,7 +12,7 @@ export class AuthorComponent implements OnInit {
 
   author = new Author();
 
-  constructor(private route: ActivatedRoute, private service: AuthorService) { }
+  constructor(private route: ActivatedRoute, private service: AuthorService, private router: Router) { }
 
   ngOnInit(): void {
     let idx = 1;
@@ -20,4 +20,7 @@ export class AuthorComponent implements OnInit {
     this.service.getSingleRecord(idx).subscribe(data => this.author.convert(Object.values(data)));
   }
 
+  redirect() {
+    this.router.navigate(['authors']).then();
+  }
 }

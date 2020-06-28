@@ -1,0 +1,13 @@
+.name {
+  padding-top: 30px;
+  color: #3c1100;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.details {
+  color: #1c0100;
+  font-size: 20px;
+  padding-bottom: 50px;
+}

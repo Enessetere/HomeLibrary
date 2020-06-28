@@ -5,12 +5,14 @@ import {ContactUsComponent} from './contact-us/contact-us.component';
 import {AuthorsComponent} from './authors/authors.component';
 import {AuthorFormComponent} from './author-form/author-form.component';
 import {AuthorComponent} from './author/author.component';
+import {AuthorCreatedComponent} from './author-created/author-created.component';
 
 const routes: Routes = [
   {path: ``, component: HomeComponent},
   {path: `contact`, component: ContactUsComponent},
   {path: `authors`, component: AuthorsComponent},
   {path: `create_author`, component: AuthorFormComponent},
+  {path: 'authors/success', component: AuthorCreatedComponent},
   {path: 'authors/:idx', component: AuthorComponent}
 ];
 
