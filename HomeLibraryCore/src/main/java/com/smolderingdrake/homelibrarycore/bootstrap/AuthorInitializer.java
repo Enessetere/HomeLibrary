@@ -3,10 +3,12 @@ package com.smolderingdrake.homelibrarycore.bootstrap;
 import com.smolderingdrake.homelibrarycore.domain.Author;
 import com.smolderingdrake.homelibrarycore.repository.AuthorRepository;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("develop")
 public class AuthorInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
     private final AuthorRepository authorRepository;

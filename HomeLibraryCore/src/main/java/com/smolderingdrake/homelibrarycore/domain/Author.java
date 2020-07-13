@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity(name = "authors")
 @Builder
@@ -26,4 +27,15 @@ public class Author {
     @Column(name = "last_name")
     private String lastName;
 
+    public boolean equals(Author author) {
+        if (this == author) return true;
+        if (author == null) return false;
+        return firstName.equals(author.firstName)
+                && lastName.equals(author.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
+    }
 }

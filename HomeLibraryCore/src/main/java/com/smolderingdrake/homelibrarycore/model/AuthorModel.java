@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
@@ -22,7 +21,6 @@ public class AuthorModel {
 
     private Long idx;
 
-    @Nullable
     @Length(min = 2, max = 50, message = "First name should have up to 50 characters")
     private String firstName;
 
@@ -31,20 +29,18 @@ public class AuthorModel {
     private String lastName;
 
     public boolean isEqualTo(final Author author) {
-        return (nonNull(firstName)
-                && this.firstName.equals(author.getFirstName())
-                && this.lastName.equals(author.getLastName()))
-                ||
-                (firstName == null
-                && author.getFirstName() == null
-                && this.lastName.equals(getLastName())
-        );
+        return (!nonNull(firstName)
+                || !this.firstName.equals(author.getFirstName())
+                || !this.lastName.equals(author.getLastName()))
+                && (firstName != null
+                        || author.getFirstName() != null
+                        || !this.lastName.equals(getLastName()));
     }
 
     @JsonIgnore
     @AssertTrue(message = "First and last name should start with capital letter")
     private boolean isNameValid() {
-        return  lastName != null
+        return lastName != null
                 && (firstName == null || Character.isUpperCase(firstName.charAt(0)))
                 && Character.isUpperCase(lastName.charAt(0));
     }

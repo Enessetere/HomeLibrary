@@ -4,12 +4,11 @@ import com.smolderingdrake.homelibrarycore.domain.Author;
 import com.smolderingdrake.homelibrarycore.exception.AuthorException;
 import com.smolderingdrake.homelibrarycore.model.AuthorDto;
 import com.smolderingdrake.homelibrarycore.model.AuthorModel;
-import com.smolderingdrake.homelibrarycore.model.AuthorModels;
 import com.smolderingdrake.homelibrarycore.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 
@@ -17,22 +16,17 @@ import static java.util.Objects.nonNull;
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
-    private final AuthorDto authorDto;
 
-    public AuthorService(final AuthorRepository authorRepository, final AuthorDto authorDto) {
+    public AuthorService(final AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
-        this.authorDto = authorDto;
     }
 
-    public AuthorModels getAllAuthors() {
-        return new AuthorModels(authorRepository.findAll().stream()
-                .map(authorDto::authorToAuthorModel)
-                .collect(Collectors.toList()));
+    public List<Author> getAllAuthors() {
+        return authorRepository.findAll();
     }
 
-    public AuthorModel getByIdx(final Long idx) {
-        final Author existingAuthor = getExistingAuthor(idx);
-        return authorDto.authorToAuthorModel(existingAuthor);
+    public Author getByIdx(final Long idx) {
+        return getExistingAuthor(idx);
     }
 
     private Author getExistingAuthor(final Long idx) {
@@ -40,21 +34,17 @@ public class AuthorService {
                 .orElseThrow(() -> new NoSuchElementException("Author with idx " + idx + " does not exist"));
     }
 
-    public AuthorModel createNewAuthor(final AuthorModel authorModel) {
-        if (isAuthorExisting(authorModel)) {
-            throw new AuthorException("Author with given details already exists");
-        }
-        authorModel.setIdx(null);
-        authorModel.setIdx(createAndReturnIdx(authorModel));
-        return authorModel;
+    public Author createNewAuthor(final Author author) {
+        isAuthorExisting(author);
+        author.setIdx(null);
+        return authorRepository.save(author);
     }
 
-    private boolean isAuthorExisting(final AuthorModel authorModel) {
-        return authorRepository.findByFirstNameAndLastName(authorModel.getFirstName(), authorModel.getLastName()).isPresent();
-    }
-
-    private Long createAndReturnIdx(final AuthorModel authorModel) {
-        return authorRepository.save(authorDto.authorModelToAuthor(authorModel)).getIdx();
+    private void isAuthorExisting(final Author author) {
+        authorRepository.findByFirstNameAndLastName(author.getFirstName(), author.getLastName())
+                .ifPresent(existingAuthor -> {
+                    throw new AuthorException("Author " + existingAuthor.getFirstName() + " " + existingAuthor.getLastName() + " already exists");
+                });
     }
 
     public void deleteAuthor(final Long idx) {
@@ -62,32 +52,32 @@ public class AuthorService {
         authorRepository.delete(existingAuthor);
     }
 
-    public void editAuthor(final Long idx, final AuthorModel authorModel) {
+    public void editAuthor(final Long idx, final Author author) {
+        isAuthorExisting(author);
         final Author existingAuthor = getExistingAuthor(idx);
-        if (!authorModel.isEqualTo(existingAuthor) && !isAuthorExisting(authorModel)) {
-            existingAuthor.setFirstName(authorModel.getFirstName());
-            existingAuthor.setLastName(authorModel.getLastName());
+        if (!author.equals(existingAuthor)) {
+            existingAuthor.setFirstName(author.getFirstName());
+            existingAuthor.setLastName(author.getLastName());
             authorRepository.save(existingAuthor);
         } else {
             throw new AuthorException("Author with given details already exists");
         }
     }
 
-    public void editAuthorFields(final Long idx, final AuthorModel authorModel) {
+    public void editAuthorFields(final Long idx, final Author author) {
+        isAuthorExisting(author);
         final Author existingAuthor = getExistingAuthor(idx);
-        if (!authorModel.isEqualTo(existingAuthor) && !isAuthorExisting(authorModel)) {
-            if (nonNull(authorModel.getFirstName())) {
-                existingAuthor.setFirstName(authorModel.getFirstName());
+        if (!author.equals(existingAuthor)) {
+            if (nonNull(author.getFirstName())) {
+                existingAuthor.setFirstName(author.getFirstName());
             }
-            if (nonNull(authorModel.getLastName())) {
-                existingAuthor.setLastName(authorModel.getLastName());
+            if (nonNull(author.getLastName())) {
+                existingAuthor.setLastName(author.getLastName());
             }
+            isAuthorExisting(existingAuthor);
             authorRepository.save(existingAuthor);
         } else {
             throw new AuthorException("Author with given details already exists");
         }
     }
-
-
-    //TODO: Unit tests for AuthorService
 }

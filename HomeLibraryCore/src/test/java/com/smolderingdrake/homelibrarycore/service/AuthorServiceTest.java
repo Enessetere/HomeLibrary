@@ -2,8 +2,6 @@ package com.smolderingdrake.homelibrarycore.service;
 
 import com.smolderingdrake.homelibrarycore.domain.Author;
 import com.smolderingdrake.homelibrarycore.exception.AuthorException;
-import com.smolderingdrake.homelibrarycore.model.AuthorDto;
-import com.smolderingdrake.homelibrarycore.model.AuthorModel;
 import com.smolderingdrake.homelibrarycore.model.AuthorModels;
 import com.smolderingdrake.homelibrarycore.repository.AuthorRepository;
 import org.junit.jupiter.api.Assertions;
@@ -19,176 +17,129 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AuthorServiceTest {
 
+    private static final List<Author> EMPTY_LIST = List.of();
+    private static final Long FIRST_INDEX = 1L;
+    private static final Long SECOND_INDEX = 2L;
+    private static final Long THIRD_INDEX = 3L;
+    private static final Author FIRST_AUTHOR = Author.builder()
+            .idx(FIRST_INDEX)
+            .firstName("Adam")
+            .lastName("Mickiewicz")
+            .build();
+    private static final Author SECOND_AUTHOR = Author.builder()
+            .idx(SECOND_INDEX)
+            .firstName("Simon")
+            .lastName("Beckett")
+            .build();
+    private static final Author THIRD_AUTHOR = Author.builder()
+            .idx(THIRD_INDEX)
+            .firstName("Anne")
+            .lastName("Bishop")
+            .build();
+    private static final List<Author> AUTHOR_LIST_WITH_TWO_ELEMENTS = List.of(FIRST_AUTHOR, SECOND_AUTHOR);
 
     @Mock
     private AuthorRepository authorRepository;
-    @Mock
-    private AuthorDto authorDto;
     @InjectMocks
     private AuthorService authorService;
 
     @Test
     void shouldReturnAuthorModelsWithEmptyList() {
-        when(authorRepository.findAll()).thenReturn(List.of());
+        when(authorRepository.findAll()).thenReturn(EMPTY_LIST);
 
-        final AuthorModels allAuthors = authorService.getAllAuthors();
+        final List<Author> allAuthors = authorService.getAllAuthors();
 
-        assertThat(allAuthors).isNotNull();
-        assertThat(allAuthors.getAuthors()).isNotNull();
-        assertThat(allAuthors.getAuthors()).hasSize(0);
+        assertThat(allAuthors).isNotNull().hasSize(0).isEqualTo(EMPTY_LIST);
     }
 
     @Test
     void shouldReturnAuthorModelsWithRecords() {
-        final Long first_idx = 1L;
-        final String first_firstName = "Jane";
-        final String first_lastName = "Doe";
-        final Author first_author = Author.builder().idx(first_idx).firstName(first_firstName).lastName(first_lastName).build();
-        final AuthorModel first_authorModel = AuthorModel.builder().idx(first_idx).firstName(first_firstName).lastName(first_lastName).build();
-        final Long second_idx = 2L;
-        final String second_firstName = "John";
-        final String second_lastName = "DoeDee";
-        final Author second_author = Author.builder().idx(second_idx).firstName(second_firstName).lastName(second_lastName).build();
-        final AuthorModel second_authorModel = AuthorModel.builder().idx(second_idx).firstName(second_firstName).lastName(second_lastName).build();
+        when(authorRepository.findAll()).thenReturn(AUTHOR_LIST_WITH_TWO_ELEMENTS);
 
-        final List<Author> authors = List.of(first_author, second_author);
-        when(authorRepository.findAll()).thenReturn(authors);
-        when(authorDto.authorToAuthorModel(any(Author.class))).thenReturn(first_authorModel).thenReturn(second_authorModel);
+        final List<Author> actualResult = authorService.getAllAuthors();
 
-        final AuthorModels allAuthors = authorService.getAllAuthors();
-
-        assertThat(allAuthors).isNotNull();
-        assertThat(allAuthors.getAuthors()).isNotNull();
-        assertThat(allAuthors.getAuthors()).hasSize(2);
-        assertThat(allAuthors.getAuthors().get(0)).isEqualTo(first_authorModel);
-        assertThat(allAuthors.getAuthors().get(1)).isEqualTo(second_authorModel);
+        assertThat(actualResult).isNotNull().hasSize(2).isEqualTo(AUTHOR_LIST_WITH_TWO_ELEMENTS);
+        assertThat(actualResult.get(0)).isEqualTo(FIRST_AUTHOR);
+        assertThat(actualResult.get(1)).isEqualTo(SECOND_AUTHOR);
     }
 
     @Test
     void shouldReturnAuthorModelWithCorrespondingIdx() {
-        final Long idx = 1L;
-        final String firstName = "Jane";
-        final String lastName = "Doe";
-        final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
-        final AuthorModel authorModel = AuthorModel.builder().idx(idx).firstName(firstName).lastName(lastName).build();
-        when(authorRepository.findById(idx)).thenReturn(Optional.of(author));
-        when(authorDto.authorToAuthorModel(author)).thenReturn(authorModel);
+        when(authorRepository.findById(any(Long.class))).thenReturn(Optional.of(FIRST_AUTHOR));
 
-        final AuthorModel result = authorService.getByIdx(idx);
+        final Author actualResult = authorService.getByIdx(any(Long.class));
 
-        assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(authorModel);
+        assertThat(actualResult).isNotNull().isEqualTo(FIRST_AUTHOR);
     }
 
     @Test
     void shouldThrowNoSuchElementExceptionWhileIndexOutOfRange() {
-        final Long idx = 1L;
-        when(authorRepository.findById(idx)).thenReturn(Optional.empty());
+        when(authorRepository.findById(FIRST_INDEX)).thenReturn(Optional.empty());
 
-        final NoSuchElementException exception = Assertions.assertThrows(NoSuchElementException.class, () -> authorService.getByIdx(idx));
-        assertThat(exception).hasMessage("Author with idx " + idx + " does not exist");
+        final NoSuchElementException exception = Assertions.assertThrows(NoSuchElementException.class, () -> authorService.getByIdx(FIRST_INDEX));
+        assertThat(exception).hasMessage("Author with idx " + FIRST_INDEX + " does not exist");
     }
 
     @Test
     void shouldCreateNewAuthor() {
-        final Long idx = 5L;
-        final String firstName = "Jane";
-        final String lastName = "Doe";
-        final AuthorModel input = AuthorModel.builder().idx(idx).firstName(firstName).lastName(lastName).build();
-        final Author author = Author.builder().idx(1L).firstName(firstName).lastName(lastName).build();
-        when(authorRepository.save(author)).thenReturn(author);
-        when(authorDto.authorModelToAuthor(input)).thenReturn(author);
-        when(authorRepository.findByFirstNameAndLastName(firstName, lastName)).thenReturn(Optional.empty());
+        when(authorRepository.save(any(Author.class))).thenReturn(SECOND_AUTHOR);
+        when(authorRepository.findByFirstNameAndLastName(any(String.class), any(String.class))).thenReturn(Optional.empty());
 
-        final AuthorModel result = authorService.createNewAuthor(input);
+        final Author actualResult = authorService.createNewAuthor(SECOND_AUTHOR);
 
-        assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(input);
-        assertThat(result.getIdx()).isEqualTo(1L);
+        assertThat(actualResult).isNotNull().isEqualTo(SECOND_AUTHOR);
     }
 
     @Test
     void shouldThrowExceptionWhenAuthorExist() {
-        final Long idx = 1L;
-        final String firstName = "Jane";
-        final String lastName = "Doe";
-        final AuthorModel input = AuthorModel.builder().firstName(firstName).lastName(lastName).build();
-        final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
-        when(authorRepository.findByFirstNameAndLastName(firstName, lastName)).thenReturn(Optional.of(author));
+        when(authorRepository.findByFirstNameAndLastName(any(String.class), any(String.class))).thenReturn(Optional.of(FIRST_AUTHOR));
 
-        final AuthorException exception = Assertions.assertThrows(AuthorException.class, () -> authorService.createNewAuthor(input));
+        final AuthorException exception = Assertions.assertThrows(AuthorException.class, () -> authorService.createNewAuthor(FIRST_AUTHOR));
 
-        assertThat(exception).hasMessage("Author with given details already exists");
+        assertThat(exception).hasMessage("Author " + FIRST_AUTHOR.getFirstName() + " " + FIRST_AUTHOR.getLastName() + " already exists");
     }
 
     @Test
     void shouldDeleteAuthorWithGivenIdx() {
-        final Long idx = 1L;
-        final String firstName = "Jane";
-        final String lastName = "Doe";
-        final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
-        when(authorRepository.findById(idx)).thenReturn(Optional.of(author));
+        when(authorRepository.findById(any(Long.class))).thenReturn(Optional.of(FIRST_AUTHOR));
 
-        authorService.deleteAuthor(idx);
+        authorService.deleteAuthor(FIRST_INDEX);
     }
 
     @Test
     void shouldThrowAuthorExceptionWithRedundantPutMethod() {
-        final Long idx = 1L;
-        final String firstName = "Jane";
-        final String lastName = "Doe";
-        final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
-        final AuthorModel input = AuthorModel.builder().firstName(firstName).lastName(lastName).build();
-        when(authorRepository.findById(idx)).thenReturn(Optional.of(author));
+        when(authorRepository.findById(any(Long.class))).thenReturn(Optional.of(FIRST_AUTHOR));
 
-        final AuthorException exception = Assertions.assertThrows(AuthorException.class, () -> authorService.editAuthor(idx, input));
+        final AuthorException exception = Assertions.assertThrows(AuthorException.class, () -> authorService.editAuthor(FIRST_INDEX, FIRST_AUTHOR));
 
         assertThat(exception).hasMessage("Author with given details already exists");
     }
 
     @Test
     void shouldProcessPutMethod() {
-        final Long idx = 1L;
-        final String firstName = "Jane";
-        final String newFirstName = "John";
-        final String lastName = "Doe";
-        final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
-        final AuthorModel input = AuthorModel.builder().firstName(newFirstName).lastName(lastName).build();
-        when(authorRepository.findById(idx)).thenReturn(Optional.of(author));
+        when(authorRepository.findById(any(Long.class))).thenReturn(Optional.of(FIRST_AUTHOR));
 
-        authorService.editAuthor(idx, input);
+        authorService.editAuthor(FIRST_INDEX, THIRD_AUTHOR);
     }
 
     @Test
     void shouldThrowAuthorExceptionWithRedundantPatchMethod() {
-        final Long idx = 1L;
-        final String firstName = "Jane";
-        final String lastName = "Doe";
-        final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
-        final AuthorModel input = AuthorModel.builder().firstName(firstName).lastName(lastName).build();
-        when(authorRepository.findById(idx)).thenReturn(Optional.of(author));
+        when(authorRepository.findById(any(Long.class))).thenReturn(Optional.of(FIRST_AUTHOR));
 
-        final AuthorException exception = Assertions.assertThrows(AuthorException.class, () -> authorService.editAuthorFields(idx, input));
+        final AuthorException exception = Assertions.assertThrows(AuthorException.class, () -> authorService.editAuthorFields(FIRST_INDEX, FIRST_AUTHOR));
 
         assertThat(exception).hasMessage("Author with given details already exists");
     }
-
     @Test
     void shouldProcessPatchMethod() {
-        final Long idx = 1L;
-        final String firstName = "Jane";
-        final String newFirstName = "John";
-        final String lastName = "Doe";
-        final String newLastName = "Dee";
-        final Author author = Author.builder().idx(idx).firstName(firstName).lastName(lastName).build();
-        final AuthorModel input = AuthorModel.builder().firstName(newFirstName).lastName(newLastName).build();
-        when(authorRepository.findById(idx)).thenReturn(Optional.of(author));
+        when(authorRepository.findById(any(Long.class))).thenReturn(Optional.of(FIRST_AUTHOR));
 
-        authorService.editAuthorFields(idx, input);
+        authorService.editAuthorFields(FIRST_INDEX, SECOND_AUTHOR);
     }
 }
