@@ -16,7 +16,7 @@
   color: #5c3112;
 }
 
-.author-input:focus {
+.author-input:focus{
   border: dotted 1px #3c1100;
   border-radius: 5px;
   background-color: #dcb192;
@@ -39,4 +39,57 @@
   transition: 1s;
   color: #dcb192;
   background-color: #7c5132;
+}
+
+.author-error {
+  color: #bb1111;
+  font-size: 14px;
+  text-decoration: none;
+  font-style: normal;
+}
+
+.author-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.author-tooltip .author-tooltip-text {
+  visibility: hidden;
+  width: 240px;
+  background-color: #dcb192;
+  color: #3c1100;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  top: -5px;
+  left: 102%;
+  font-size: 12px;
+  opacity: 0.6;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.author-tooltip-text {
+  border: #3c1100 1px solid;
+}
+
+.author-tooltip .author-tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #3c1100 transparent transparent;
+}
+
+.author-tooltip:focus-within .author-tooltip-text {
+  visibility: visible;
+}
+
+.cross-tick {
+  width: 11px;
+  height: 11px;
 }

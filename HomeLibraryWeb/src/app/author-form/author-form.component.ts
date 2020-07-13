@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Author} from '../author';
 import {AuthorService} from '../author.service';
 import {Router} from '@angular/router';
+import {ValidationErrors} from '@angular/forms';
 
 @Component({
   selector: 'app-author-form',
@@ -10,21 +11,29 @@ import {Router} from '@angular/router';
 })
 export class AuthorFormComponent implements OnInit {
 
-  constructor(private authorService: AuthorService, private router: Router) { }
+  error = null;
+
+  constructor(private authorService: AuthorService, private router: Router) {
+  }
 
   ngOnInit(): void {
   }
 
   onClickSubmit(authorForm) {
     const author: Author = new Author();
-    author.firstName = authorForm.first_name;
-    author.lastName = authorForm.last_name;
-    const subscription = this.authorService.sendData(author).subscribe(res => console.log(res));
-    console.log(subscription);
-    if (subscription instanceof ErrorEvent) {
-      this.router.navigate(['authors/failure'], {state: {data: author, error: subscription.message}}).then();
+    if (authorForm.first_name === '') {
+      author.firstName = null;
     } else {
-      this.router.navigate(['authors/success'], {state: {data: author}}).then();
+      author.firstName = authorForm.first_name;
     }
+    author.lastName = authorForm.last_name;
+    this.authorService.sendData(author).subscribe(
+      createdAuthor => this.router.navigate(['authors/success'], {state: {data: createdAuthor}}),
+      err => this.error = err.error
+    );
+  }
+
+  onClickError(errors) {
+    console.log(errors);
   }
 }
