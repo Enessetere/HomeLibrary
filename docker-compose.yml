@@ -1,0 +1,33 @@
+version: '3.5'
+
+services:
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: L!br@ryC0r3
+      MYSQL_DATABASE: home_library
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+     [9082:8080]
+  wait-for-it:
+    image: willwill/wait-for-it
+    entrypoint: "./wait-for-it.sh -t 300 db:3306 --strict"
+  home_library:
+    build: ./HomeLibraryCore
+    ports:
+     [9081:9081]
+    depends_on:
+      - db
+    restart: on-failure
+  library_web:
+    build: ./HomeLibraryWeb
+#    volumes:
+#    - './HomeLibraryWeb:/usr/src/app'
+    ports:
+      - 4200:4200
+    command: >
+      bash -c "npm install && ng serve --host 0.0.0.0 --port 4200"
