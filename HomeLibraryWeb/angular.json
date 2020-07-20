@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "HomeLibraryWeb"
+    }
+  },
+  "defaultProject": "HomeLibraryWeb",
+  "cli": {
+    "analytics": false
+  }
 }
