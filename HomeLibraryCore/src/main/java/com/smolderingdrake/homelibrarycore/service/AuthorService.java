@@ -7,12 +7,14 @@ import com.smolderingdrake.homelibrarycore.model.AuthorModel;
 import com.smolderingdrake.homelibrarycore.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import static java.util.Objects.nonNull;
 
 @Service
+@Transactional
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
