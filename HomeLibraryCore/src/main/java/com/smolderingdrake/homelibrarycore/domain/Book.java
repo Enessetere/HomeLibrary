@@ -21,6 +21,7 @@ public class Book {
     @ISBN
     private String isbn;
 
+    @Column(name = "title")
     private String title;
 
     @ManyToMany
@@ -32,5 +33,6 @@ public class Book {
     @Enumerated(EnumType.STRING)
     private Genre genre;
 
+    @Column(name = "no_of_copies")
     private Integer count;
 }

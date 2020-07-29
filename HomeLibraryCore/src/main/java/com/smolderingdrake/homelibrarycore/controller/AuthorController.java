@@ -1,6 +1,7 @@
 package com.smolderingdrake.homelibrarycore.controller;
 
 import com.smolderingdrake.homelibrarycore.domain.Author;
+import com.smolderingdrake.homelibrarycore.domain.Book;
 import com.smolderingdrake.homelibrarycore.model.AuthorDto;
 import com.smolderingdrake.homelibrarycore.model.AuthorModel;
 import com.smolderingdrake.homelibrarycore.model.AuthorModels;
@@ -31,7 +32,11 @@ public class AuthorController {
     }
 
     private List<AuthorModel> convertAuthorToAuthorModel(final List<Author> authors) {
-        return authors.stream().map(authorDto::authorToAuthorModel).collect(Collectors.toUnmodifiableList());
+        final List<AuthorModel> authorModels = authors.stream().map(authorDto::authorToAuthorModel).collect(Collectors.toList());
+        for (int idx = 0; idx < authors.size(); idx++) {
+            authorModels.get(idx).setBooks(authors.get(idx).getBooks().stream().map(Book::getTitle).collect(Collectors.toList()));
+        }
+        return authorModels;
     }
 
     @GetMapping("/{idx}")

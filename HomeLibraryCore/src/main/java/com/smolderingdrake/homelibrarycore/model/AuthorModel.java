@@ -11,6 +11,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
+import java.util.List;
+
 import static java.util.Objects.nonNull;
 
 @Data
@@ -27,6 +29,8 @@ public class AuthorModel {
     @NotNull(message = "Last name cannot be empty")
     @Length(min = 2, max = 50, message = "Last name should have at least 2 characters and up to 50 characters")
     private String lastName;
+
+    private List<String> books;
 
     public boolean isEqualTo(final Author author) {
         return (!nonNull(firstName)
