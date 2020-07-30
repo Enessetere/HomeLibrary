@@ -35,16 +35,15 @@ public class AuthorService {
     }
 
     public Author createNewAuthor(final Author author) {
-        isAuthorExisting(author);
+        if (isAuthorExisting(author)) {
+            throw new AuthorException("Author " + author.getFirstName() + " " + author.getLastName());
+        }
         author.setIdx(null);
         return authorRepository.save(author);
     }
 
-    private void isAuthorExisting(final Author author) {
-        authorRepository.findByFirstNameAndLastName(author.getFirstName(), author.getLastName())
-                .ifPresent(existingAuthor -> {
-                    throw new AuthorException("Author " + existingAuthor.getFirstName() + " " + existingAuthor.getLastName() + " already exists");
-                });
+    public boolean isAuthorExisting(final Author author) {
+        return authorRepository.findByFirstNameAndLastName(author.getFirstName(), author.getLastName()).isPresent();
     }
 
     public void deleteAuthor(final Long idx) {

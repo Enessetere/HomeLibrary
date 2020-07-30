@@ -4,8 +4,10 @@ import com.smolderingdrake.homelibrarycore.domain.Author;
 import com.smolderingdrake.homelibrarycore.domain.Book;
 import com.smolderingdrake.homelibrarycore.model.*;
 import com.smolderingdrake.homelibrarycore.service.BookService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,11 +39,11 @@ public class BookController {
 
     private BookModel convertToBookModel(final Book book) {
         final BookModel bookModel = bookDto.bookToBookModel(book);
-        bookModel.setAuthors(convertAuthorsToAuthorsModels(book.getAuthors()));
+        bookModel.setAuthors(convertAuthorsToAuthorModels(book.getAuthors()));
         return bookModel;
     }
 
-    private List<AuthorModel> convertAuthorsToAuthorsModels(final List<Author> authors) {
+    private List<AuthorModel> convertAuthorsToAuthorModels(final List<Author> authors) {
         return authors.stream()
                 .map(authorDto::authorToAuthorModel)
                 .collect(Collectors.toList());
@@ -50,5 +52,24 @@ public class BookController {
     @GetMapping("/{isbn}")
     public BookModel getBookById(@PathVariable final String isbn) {
         return convertToBookModel(bookService.getBookByIsbn(isbn));
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public BookModel createNewBook(@RequestBody @Valid final BookModel bookModel) {
+        final Book book = bookService.createBook(convertToBook(bookModel));
+        return convertToBookModel(book);
+    }
+
+    private Book convertToBook(final BookModel bookModel) {
+        final Book book = bookDto.bookModelToBook(bookModel);
+        book.setAuthors(convertAuthorModelsToAuthors(bookModel.getAuthors()));
+        return book;
+    }
+
+    private List<Author> convertAuthorModelsToAuthors(final List<AuthorModel> authorModels) {
+        return authorModels.stream()
+                .map(authorDto::authorModelToAuthor)
+                .collect(Collectors.toList());
     }
 }
