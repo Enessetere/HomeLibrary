@@ -20,7 +20,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
     private static final Author ANNE_BISHOP = Author.builder().firstName("Anne").lastName("Bishop").build();
     private static final Author JK_ROWLING = Author.builder().firstName("J. K.").lastName("Rowling").build();
     private static final Book CHEMISTRY_OF_DEATH = Book.builder().isbn("9788324148455").count(1).genre(Genre.CRIMINAL).authors(List.of(SIMON_BECKETT)).title("The chemistry of death").build();
-    private static final Book WRITTEN_IN_BONE = Book.builder().isbn("9788324151639").count(1).genre(Genre.CRIMINAL).authors(List.of(SIMON_BECKETT, JK_ROWLING)).title("Written in Bone").build();
+    private static final Book WRITTEN_IN_BONE = Book.builder().isbn("9788324151639").count(1).genre(Genre.CRIMINAL).authors(List.of(SIMON_BECKETT)).title("Written in Bone").build();
 
     private final AuthorService authorService;
     private final BookService bookService;
@@ -33,6 +33,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         authorService.createNewAuthor(ANNE_BISHOP);
+        authorService.createNewAuthor(JK_ROWLING);
         bookService.createBook(CHEMISTRY_OF_DEATH);
         bookService.createBook(WRITTEN_IN_BONE);
     }

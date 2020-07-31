@@ -23,4 +23,13 @@ export class AuthorComponent implements OnInit {
   redirect() {
     this.router.navigate(['authors']).then();
   }
+
+  event(book: string) {
+    console.log(book);
+  }
+
+  isEmpty(): boolean {
+    console.log(this.author.books);
+    return false;
+  }
 }

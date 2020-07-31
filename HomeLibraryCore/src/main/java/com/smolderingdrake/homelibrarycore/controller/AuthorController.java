@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @CrossOrigin
@@ -28,20 +29,32 @@ public class AuthorController {
 
     @GetMapping
     public AuthorModels getAll() {
-        return new AuthorModels(convertAuthorToAuthorModel(authorService.getAllAuthors()));
+        return new AuthorModels(convertAuthorsToAuthorModels(authorService.getAllAuthors()));
     }
 
-    private List<AuthorModel> convertAuthorToAuthorModel(final List<Author> authors) {
+    private List<AuthorModel> convertAuthorsToAuthorModels(final List<Author> authors) {
         final List<AuthorModel> authorModels = authors.stream().map(authorDto::authorToAuthorModel).collect(Collectors.toList());
         for (int idx = 0; idx < authors.size(); idx++) {
-            authorModels.get(idx).setBooks(authors.get(idx).getBooks().stream().map(Book::getTitle).collect(Collectors.toList()));
+            authorModels.get(idx).setBooks(extractTitle(authors.get(idx).getBooks()));
         }
         return authorModels;
     }
 
     @GetMapping("/{idx}")
     public AuthorModel getByIdx(@PathVariable final Long idx) {
-        return authorDto.authorToAuthorModel(authorService.getByIdx(idx));
+        return convertAuthorToAuthorModel(authorService.getByIdx(idx));
+    }
+
+    private AuthorModel convertAuthorToAuthorModel(final Author author) {
+        final AuthorModel authorModel = authorDto.authorToAuthorModel(author);
+        authorModel.setBooks(extractTitle(author.getBooks()));
+        return authorModel;
+    }
+
+    private List<String> extractTitle(List<Book> books) {
+        return books.stream()
+                .map(Book::getTitle)
+                .collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
