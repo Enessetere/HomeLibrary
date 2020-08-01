@@ -6,6 +6,7 @@ import {AuthorsComponent} from './authors/authors.component';
 import {AuthorFormComponent} from './author-form/author-form.component';
 import {AuthorComponent} from './author/author.component';
 import {AuthorCreatedComponent} from './author-created/author-created.component';
+import {BooksComponent} from './books/books.component';
 
 const routes: Routes = [
   {path: ``, component: HomeComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: `authors`, component: AuthorsComponent},
   {path: `create_author`, component: AuthorFormComponent},
   {path: 'authors/success', component: AuthorCreatedComponent},
-  {path: 'authors/:idx', component: AuthorComponent}
+  {path: 'authors/:idx', component: AuthorComponent},
+  {path: `books`, component: BooksComponent}
 ];
 
 @NgModule({
@@ -21,4 +23,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const RoutingComponent = [HomeComponent, ContactUsComponent, AuthorsComponent];
+export const RoutingComponent = [HomeComponent, ContactUsComponent, AuthorsComponent, BooksComponent];
