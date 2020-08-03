@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import {AuthorComponent} from './author/author.component';
 import {AuthorCreatedComponent} from './author-created/author-created.component';
 import { BooksComponent } from './books/books.component';
+import { BookComponent } from './book/book.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { BooksComponent } from './books/books.component';
     AuthorFormComponent,
     AuthorComponent,
     AuthorCreatedComponent,
-    BooksComponent
+    BooksComponent,
+    BookComponent
   ],
   imports: [
     BrowserModule,

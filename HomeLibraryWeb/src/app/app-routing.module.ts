@@ -7,6 +7,7 @@ import {AuthorFormComponent} from './author-form/author-form.component';
 import {AuthorComponent} from './author/author.component';
 import {AuthorCreatedComponent} from './author-created/author-created.component';
 import {BooksComponent} from './books/books.component';
+import {BookComponent} from './book/book.component';
 
 const routes: Routes = [
   {path: ``, component: HomeComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: `create_author`, component: AuthorFormComponent},
   {path: 'authors/success', component: AuthorCreatedComponent},
   {path: 'authors/:idx', component: AuthorComponent},
-  {path: `books`, component: BooksComponent}
+  {path: `books`, component: BooksComponent},
+  {path: `books/:isbn`, component: BookComponent}
 ];
 
 @NgModule({
