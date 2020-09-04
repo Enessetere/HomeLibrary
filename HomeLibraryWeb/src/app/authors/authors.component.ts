@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthorService} from '../author.service';
 import {Author} from '../author';
 import {Router} from '@angular/router';
+import {StorageService} from '../storage.service';
 
 @Component({
   selector: 'app-authors',
@@ -13,7 +14,7 @@ export class AuthorsComponent implements OnInit {
   tmp = [];
   authors: Author[] = [];
 
-  constructor(private authorService: AuthorService, private router: Router) { }
+  constructor(private authorService: AuthorService, private router: Router, private storageService: StorageService) { }
 
   ngOnInit() {
     this.authorService.getData().subscribe((data) => {
@@ -23,6 +24,7 @@ export class AuthorsComponent implements OnInit {
   }
 
   event(author: Author) {
+    this.storageService.setState(author);
     this.router.navigate(['authors', author.idx]).then();
   }
 }

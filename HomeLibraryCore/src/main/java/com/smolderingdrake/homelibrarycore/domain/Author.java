@@ -29,6 +29,9 @@ public class Author {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "description")
+    private String description;
+
     @ManyToMany(mappedBy = "authors")
     private List<Book> books;
 

@@ -3,11 +3,13 @@ export class Author {
   firstName: string;
   lastName: string;
   books: string[] = [];
+  description: string;
 
   convert(singleAuthorArray) {
     this.idx = singleAuthorArray[0];
     this.firstName = singleAuthorArray[1];
     this.lastName = singleAuthorArray[2];
-    this.books = singleAuthorArray[3];
+    this.description = singleAuthorArray[3];
+    this.books = singleAuthorArray[4];
   }
 }

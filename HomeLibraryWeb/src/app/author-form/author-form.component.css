@@ -2,6 +2,7 @@
   margin: 20px;
   text-align: center;
   font-style: italic;
+  display: block;
   font-size: 19px;
   font-family: "Bookman Old Style", sans-serif;
   color: #5c3112;
@@ -92,4 +93,22 @@
 .cross-tick {
   width: 11px;
   height: 11px;
+}
+
+.author-description {
+  font-style: italic;
+  margin: 5px 5px;
+  background-color: #ac8162;
+  border: dotted 1px #3c1100;
+  border-radius: 5px;
+  width: 500px;
+  color: #5c3112;
+  overflow-wrap: break-word;
+}
+
+.author-description:focus {
+  border: dotted 1px #3c1100;
+  border-radius: 5px;
+  background-color: #dcb192;
+  color: #3c1100;
 }

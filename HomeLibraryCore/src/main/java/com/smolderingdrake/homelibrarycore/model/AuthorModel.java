@@ -30,6 +30,8 @@ public class AuthorModel {
     @Length(min = 2, max = 50, message = "Last name should have at least 2 characters and up to 50 characters")
     private String lastName;
 
+    private String description;
+
     private List<String> books;
 
     public boolean isEqualTo(final Author author) {

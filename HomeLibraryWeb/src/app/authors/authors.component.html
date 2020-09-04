@@ -1,14 +1,12 @@
 <table class="authors">
   <thead>
   <tr>
-    <td>Idx</td>
     <td>First Name</td>
     <td>Last Name</td>
   </tr>
   </thead>
   <tbody>
   <tr class="author_list" *ngFor="let author of authors" (click)="event(author)">
-    <td> {{author.idx}}</td>
     <td> {{author.firstName}}</td>
     <td> {{author.lastName}}</td>
   </tr>

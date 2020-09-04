@@ -34,6 +34,12 @@
     </span>
   </div>
   <br/>
+  <div id="description-input-box" class="author-tooltip">
+    <label for="description">Description:</label><br/>
+    <textarea id="description" type="text" name="author_description" placeholder="Description..." class="author-description" ngModel
+              (keydown)="resize()"></textarea>
+  </div>
+  <br/>
   <input class="author-save" type="submit" value="Save author" [disabled]="authorForm.invalid"/>
 </form>
 

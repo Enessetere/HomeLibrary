@@ -16,11 +16,11 @@ import java.util.List;
 @Profile("develop")
 public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 
-    private static final Author SIMON_BECKETT = Author.builder().firstName("Simon").lastName("Beckett").build();
-    private static final Author ANNE_BISHOP = Author.builder().firstName("Anne").lastName("Bishop").build();
-    private static final Author JK_ROWLING = Author.builder().firstName("J. K.").lastName("Rowling").build();
-    private static final Book CHEMISTRY_OF_DEATH = Book.builder().isbn("9788324148455").count(1).genre(Genre.CRIMINAL).authors(List.of(SIMON_BECKETT)).title("The chemistry of death").build();
-    private static final Book WRITTEN_IN_BONE = Book.builder().isbn("9788324151639").count(1).genre(Genre.CRIMINAL).authors(List.of(SIMON_BECKETT)).title("Written in Bone").build();
+    private static final Author SIMON_BECKETT = Author.builder().firstName("Simon").lastName("Beckett").description("Criminal writer").build();
+    private static final Author ANNE_BISHOP = Author.builder().firstName("Anne").lastName("Bishop").description("Fantasy/romance writer.").build();
+    private static final Author JK_ROWLING = Author.builder().firstName("J. K.").lastName("Rowling").description("Fantasy writer.").build();
+    private static final Book CHEMISTRY_OF_DEATH = Book.builder().isbn("9788324148455").description("1st part of David Hunter history.").count(1).genre(Genre.CRIMINAL).authors(List.of(SIMON_BECKETT)).title("The chemistry of death").build();
+    private static final Book WRITTEN_IN_BONE = Book.builder().isbn("9788324151639").description("2nd part of David Hunter history.").count(1).genre(Genre.CRIMINAL).authors(List.of(SIMON_BECKETT)).title("Written in Bone").build();
 
     private final AuthorService authorService;
     private final BookService bookService;

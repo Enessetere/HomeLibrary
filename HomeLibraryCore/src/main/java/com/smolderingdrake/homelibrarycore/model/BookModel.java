@@ -25,6 +25,8 @@ public class BookModel {
 
     private List<AuthorModel> authors;
 
+    private String description;
+
     private Genre genre;
 
     @Min(value = 0, message = "Count cannot be negative")

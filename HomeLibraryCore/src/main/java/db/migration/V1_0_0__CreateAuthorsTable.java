@@ -12,7 +12,8 @@ public class V1_0_0__CreateAuthorsTable extends BaseJavaMigration {
         template.execute("CREATE TABLE authors (\n"
                 + "idx BIGINT primary key,\n"
                 + "first_name VARCHAR(50),\n"
-                + "last_name VARCHAR(50)\n"
+                + "last_name VARCHAR(50),\n"
+                + "description VARCHAR\n"
                 + ");"
         );
     }

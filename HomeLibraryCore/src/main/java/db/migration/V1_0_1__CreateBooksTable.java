@@ -13,6 +13,7 @@ public class V1_0_1__CreateBooksTable extends BaseJavaMigration {
                 + "isbn VARCHAR(17) primary key,\n"
                 + "title VARCHAR(200),\n"
                 + "genre VARCHAR(20),\n"
+                + "description VARCHAR,\n"
                 + "no_of_copies int\n"
                 + ");"
         );

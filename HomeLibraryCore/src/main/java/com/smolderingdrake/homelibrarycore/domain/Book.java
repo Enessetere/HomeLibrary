@@ -24,6 +24,9 @@ public class Book {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "description")
+    private String description;
+
     @ManyToMany
     @JoinTable(name = "books_to_authors",
             joinColumns = @JoinColumn(name = "book_isbn"),
