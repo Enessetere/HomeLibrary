@@ -24,13 +24,19 @@ export class AuthorComponent implements OnInit {
     if (this.storageService.getState() === undefined) {
       let idx = 1;
       this.route.params.subscribe(params => idx = params.idx);
-      this.service.getSingleRecord(idx).subscribe(data => this.author.convert(Object.values(data)));
+      this.service.getSingleRecord(idx).subscribe(
+        data => this.author.convert(Object.values(data)),
+        err => console.log(err),
+        () => this.fillDescription()
+      );
     } else {
       this.author = this.storageService.getState();
       this.storageService.setState(undefined);
     }
-    const elementById = document.getElementById('author_description_text');
-    elementById.innerHTML = this.author.description.replace(/\\n/gi, '<br/>');
+  }
+
+  fillDescription() {
+    document.getElementById('author_description_text').innerHTML = this.author.description.replace(/\\n/gi, '<br/>');
   }
 
   redirect() {
