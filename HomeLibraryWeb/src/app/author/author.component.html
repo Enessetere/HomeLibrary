@@ -2,8 +2,8 @@
 <div id="author_details" class="author details">Number in system: {{author.idx}}</div>
 <div id="author_description" class="author details">Description:<br/>{{author.description}}</div>
 <div id="books" class="name books_list" *ngIf="author.books.length > 0">Books:
-  <li class="book" *ngFor="let book of author.books" (click)="event(book)">
-    {{book}}
+  <li class="book" *ngFor="let book of author.books" (click)="event(book.isbn)">
+    {{book.title}}
   </li>
 </div>
-<div id="return" class="author return" (click)="redirect()">Go back</div>
+<div id="return" class="author return" (click)="redirect()">Go to authors list</div>

@@ -1,8 +1,10 @@
+import {Book} from './book';
+
 export class Author {
   idx: bigint;
   firstName: string;
   lastName: string;
-  books: string[] = [];
+  books: Book[] = [];
   description: string;
 
   convert(singleAuthorArray) {

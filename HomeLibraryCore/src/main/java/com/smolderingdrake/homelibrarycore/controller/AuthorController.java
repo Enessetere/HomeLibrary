@@ -2,16 +2,13 @@ package com.smolderingdrake.homelibrarycore.controller;
 
 import com.smolderingdrake.homelibrarycore.domain.Author;
 import com.smolderingdrake.homelibrarycore.domain.Book;
-import com.smolderingdrake.homelibrarycore.model.AuthorDto;
-import com.smolderingdrake.homelibrarycore.model.AuthorModel;
-import com.smolderingdrake.homelibrarycore.model.AuthorModels;
+import com.smolderingdrake.homelibrarycore.model.*;
 import com.smolderingdrake.homelibrarycore.service.AuthorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @CrossOrigin
@@ -21,10 +18,12 @@ public class AuthorController {
 
     private final AuthorService authorService;
     private final AuthorDto authorDto;
+    private final BookDto bookDto;
 
-    public AuthorController(final AuthorService authorService, final AuthorDto authorDto) {
+    public AuthorController(final AuthorService authorService, final AuthorDto authorDto, final BookDto bookDto) {
         this.authorService = authorService;
         this.authorDto = authorDto;
+        this.bookDto = bookDto;
     }
 
     @GetMapping
@@ -34,10 +33,25 @@ public class AuthorController {
 
     private List<AuthorModel> convertAuthorsToAuthorModels(final List<Author> authors) {
         final List<AuthorModel> authorModels = authors.stream().map(authorDto::authorToAuthorModel).collect(Collectors.toList());
+        authorModels.forEach(this::changeDescription);
         for (int idx = 0; idx < authors.size(); idx++) {
-            authorModels.get(idx).setBooks(extractTitle(authors.get(idx).getBooks()));
+            authorModels.get(idx).setBooks(convertBooksToBookModels(authors.get(idx).getBooks()));
         }
         return authorModels;
+    }
+
+    private void changeDescription(final AuthorModel authorModel) {
+        authorModel.setDescription(escapeNewLineInAuthorDescription(authorModel));
+    }
+
+    private String escapeNewLineInAuthorDescription(final AuthorModel authorModel) {
+        return authorModel.getDescription().replace("\n", "\\n");
+    }
+
+    private List<BookModel> convertBooksToBookModels(final List<Book> books) {
+        return books.stream()
+                .map(bookDto::bookToBookModel)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{idx}")
@@ -47,14 +61,8 @@ public class AuthorController {
 
     private AuthorModel convertAuthorToAuthorModel(final Author author) {
         final AuthorModel authorModel = authorDto.authorToAuthorModel(author);
-        authorModel.setBooks(extractTitle(author.getBooks()));
+        authorModel.setBooks(convertBooksToBookModels(author.getBooks()));
         return authorModel;
-    }
-
-    private List<String> extractTitle(List<Book> books) {
-        return books.stream()
-                .map(Book::getTitle)
-                .collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.CREATED)

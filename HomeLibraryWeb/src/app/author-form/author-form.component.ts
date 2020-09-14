@@ -18,21 +18,13 @@ export class AuthorFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClickSubmit(authorForm) {
-    const author: Author = new Author();
-    if (authorForm.first_name === '') {
-      author.firstName = null;
-    } else {
-      author.firstName = authorForm.first_name;
+  onClickSubmit(authorForm: Author) {
+    if (authorForm.firstName === '') {
+      authorForm.firstName = undefined;
     }
-    author.lastName = authorForm.last_name;
-    if (authorForm.author_description === '') {
-      author.description = null;
-    } else {
-      author.description = authorForm.author_description;
-    }
-    console.log(author);
-    this.authorService.sendData(author).subscribe(
+    authorForm.description.replace('\n', '\\n');
+    console.log(authorForm);
+    this.authorService.sendData(authorForm).subscribe(
       createdAuthor => this.router.navigate(['authors/success'], {state: {data: createdAuthor}}),
       err => this.error = err.error
     );

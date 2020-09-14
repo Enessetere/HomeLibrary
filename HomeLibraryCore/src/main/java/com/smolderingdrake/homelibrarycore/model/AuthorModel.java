@@ -32,7 +32,7 @@ public class AuthorModel {
 
     private String description;
 
-    private List<String> books;
+    private List<BookModel> books;
 
     public boolean isEqualTo(final Author author) {
         return (!nonNull(firstName)

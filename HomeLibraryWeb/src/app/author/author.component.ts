@@ -21,14 +21,16 @@ export class AuthorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let idx = 1;
-    this.route.params.subscribe(params => idx = params.idx);
     if (this.storageService.getState() === undefined) {
+      let idx = 1;
+      this.route.params.subscribe(params => idx = params.idx);
       this.service.getSingleRecord(idx).subscribe(data => this.author.convert(Object.values(data)));
     } else {
       this.author = this.storageService.getState();
       this.storageService.setState(undefined);
     }
+    const elementById = document.getElementById('author_description');
+    elementById.innerHTML.replace(/\\n/gi, '<br/>');
   }
 
   redirect() {
@@ -36,7 +38,7 @@ export class AuthorComponent implements OnInit {
   }
 
   event(book: string) {
-    console.log(book);
+    this.router.navigate(['books', book]).then();
   }
 
   isEmpty(): boolean {

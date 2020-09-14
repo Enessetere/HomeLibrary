@@ -5,38 +5,38 @@
   <div id="global_error_message" class="author-error" *ngIf="error != null">{{error.details}}<br/><br/></div>
   <div id="first-name-input-box" class="author-tooltip">
     <label for="firstName" (click)="onClickError(authorForm)">First name: </label>
-    <input class="author-input" id="firstName" type="text" name="first_name" placeholder="First name" ngModel
+    <input class="author-input" id="firstName" type="text" name="firstName" placeholder="First name" ngModel
            minlength="2" maxlength="25"
            oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.substring(1)"
            (input)="error = null"
            autocomplete="false"/>
     <span id="first-name-tooltip" class="author-tooltip-text">
       <span
-        *ngIf="authorForm.invalid && authorForm.form.controls.first_name.errors != null && authorForm.form.controls.first_name.errors.minlength; then failCheck else successCheck"></span> First name should be at least 2 characters long or empty<br/>
+        *ngIf="authorForm.invalid && authorForm.form.controls.firstName.errors != null && authorForm.form.controls.firstName.errors.minlength; then failCheck else successCheck"></span> First name should be at least 2 characters long or empty<br/>
       <span
-        *ngIf="authorForm.invalid && authorForm.form.controls.first_name.errors != null && authorForm.form.controls.first_name.errors.maxlength != null; then failCheck else successCheck"></span> First name should be up to 50 characters long
+        *ngIf="authorForm.invalid && authorForm.form.controls.firstName.errors != null && authorForm.form.controls.firstName.errors.maxlength != null; then failCheck else successCheck"></span> First name should be up to 50 characters long
     </span>
   </div>
   <br/>
   <div id="last-name-input-box" class="author-tooltip">
     <label for="lastName">Last name: </label>
-    <input class="author-input" id="lastName" type="text" name="last_name" placeholder="Last name" ngModel
+    <input class="author-input" id="lastName" type="text" name="lastName" placeholder="Last name" ngModel
            required minlength="2" maxlength="25"
            oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.substring(1)"
            (input)="error = null"/>
     <span id="last-name-tooltip" class="author-tooltip-text">
       <span
-        *ngIf="authorForm.invalid && authorForm.form.controls.last_name.errors != null && authorForm.form.controls.last_name.errors.required != null; then failCheck else successCheck"></span> Last name cannot be empty<br/>
+        *ngIf="authorForm.invalid && authorForm.form.controls.lastName.errors != null && authorForm.form.controls.lastName.errors.required != null; then failCheck else successCheck"></span> Last name cannot be empty<br/>
       <span
-        *ngIf="authorForm.invalid && authorForm.form.controls.last_name.errors != null && (authorForm.form.controls.last_name.errors.minlength != null || authorForm.form.controls.last_name.value == ''); then failCheck else successCheck"></span> Last name should be at least 2 characters long<br/>
+        *ngIf="authorForm.invalid && authorForm.form.controls.lastName.errors != null && (authorForm.form.controls.lastName.errors.minlength != null || authorForm.form.controls.lastName.value == ''); then failCheck else successCheck"></span> Last name should be at least 2 characters long<br/>
       <span
-        *ngIf="authorForm.invalid && authorForm.form.controls.last_name.errors != null && authorForm.form.controls.last_name.errors.maxlength != null; then failCheck else successCheck"></span> Last name should be up to 50 characters long
+        *ngIf="authorForm.invalid && authorForm.form.controls.lastName.errors != null && authorForm.form.controls.lastName.errors.maxlength != null; then failCheck else successCheck"></span> Last name should be up to 50 characters long
     </span>
   </div>
   <br/>
   <div id="description-input-box" class="author-tooltip">
     <label for="description">Description:</label><br/>
-    <textarea id="description" type="text" name="author_description" placeholder="Description..." class="author-description" ngModel
+    <textarea id="description" type="text" name="description" placeholder="Description..." class="author-description" ngModel
               (keydown)="resize()"></textarea>
   </div>
   <br/>
