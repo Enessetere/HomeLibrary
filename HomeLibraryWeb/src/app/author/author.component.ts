@@ -29,8 +29,8 @@ export class AuthorComponent implements OnInit {
       this.author = this.storageService.getState();
       this.storageService.setState(undefined);
     }
-    const elementById = document.getElementById('author_description');
-    elementById.innerHTML.replace(/\\n/gi, '<br/>');
+    const elementById = document.getElementById('author_description_text');
+    elementById.innerHTML = this.author.description.replace(/\\n/gi, '<br/>');
   }
 
   redirect() {
