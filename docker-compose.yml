@@ -25,8 +25,8 @@ services:
     restart: on-failure
   library_web:
     build: ./HomeLibraryWeb
-#    volumes:
-#    - './HomeLibraryWeb:/usr/src/app'
+    volumes:
+    - './HomeLibraryWeb:/usr/src/app'
     ports:
       - 4200:4200
     command: >

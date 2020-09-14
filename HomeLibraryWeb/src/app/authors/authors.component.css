@@ -10,12 +10,12 @@
 }
 
 .author_list:nth-child(odd) {
-  background-color: #ac8162;
+  background-color: #bc9172;
 }
 
 .author_list:hover {
   cursor: pointer;
-  background-color: #dcb192;
+  background-color: #ecc1a2;
   color: #3c1100;
   transition: 1s;
 }

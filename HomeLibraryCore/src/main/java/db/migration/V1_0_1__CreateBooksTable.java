@@ -4,18 +4,18 @@ import org.flywaydb.core.api.migration.BaseJavaMigration;
 import org.flywaydb.core.api.migration.Context;
 import org.flywaydb.core.internal.jdbc.JdbcTemplate;
 
-public class V1_0_0__CreateAuthorsTable extends BaseJavaMigration {
+public class V1_0_1__CreateBooksTable extends BaseJavaMigration {
 
     @Override
     public void migrate(final Context context) throws Exception {
         final JdbcTemplate template = new JdbcTemplate(context.getConnection());
-        template.execute("CREATE TABLE authors (\n"
-                + "idx BIGINT primary key,\n"
-                + "first_name VARCHAR(50),\n"
-                + "last_name VARCHAR(50),\n"
-                + "description VARCHAR\n"
+        template.execute("CREATE TABLE books (\n"
+                + "isbn VARCHAR(17) primary key,\n"
+                + "title VARCHAR(200),\n"
+                + "genre VARCHAR(20),\n"
+                + "description VARCHAR,\n"
+                + "no_of_copies int\n"
                 + ");"
         );
     }
-
 }

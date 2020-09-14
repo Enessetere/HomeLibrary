@@ -1,0 +1,7 @@
+<div>
+  <p>{{book.title}}</p>
+  <p>{{book.isbn}}</p>
+  <p>{{book.count}}</p>
+  <p>{{book.genre}}</p>
+  <p *ngFor="let author of book.authors">{{author.firstName}} {{author.lastName}}</p>
+</div>

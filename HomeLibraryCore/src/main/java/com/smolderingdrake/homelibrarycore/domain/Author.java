@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "authors")
@@ -12,6 +13,7 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "books")
 public class Author {
 
     @Id
@@ -26,6 +28,12 @@ public class Author {
     @Length(min = 2, max = 50, message = "Last name should have at least 2 characters and up to 50 characters")
     @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "description")
+    private String description;
+
+    @ManyToMany(mappedBy = "authors")
+    private List<Book> books;
 
     public boolean equals(Author author) {
         if (this == author) return true;

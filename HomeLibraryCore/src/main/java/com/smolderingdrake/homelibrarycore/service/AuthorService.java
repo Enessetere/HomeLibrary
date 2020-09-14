@@ -2,10 +2,9 @@ package com.smolderingdrake.homelibrarycore.service;
 
 import com.smolderingdrake.homelibrarycore.domain.Author;
 import com.smolderingdrake.homelibrarycore.exception.AuthorException;
-import com.smolderingdrake.homelibrarycore.model.AuthorDto;
-import com.smolderingdrake.homelibrarycore.model.AuthorModel;
 import com.smolderingdrake.homelibrarycore.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -13,6 +12,7 @@ import java.util.NoSuchElementException;
 import static java.util.Objects.nonNull;
 
 @Service
+@Transactional
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
@@ -35,16 +35,15 @@ public class AuthorService {
     }
 
     public Author createNewAuthor(final Author author) {
-        isAuthorExisting(author);
+        if (isAuthorExisting(author)) {
+            throw new AuthorException("Author " + author.getFirstName() + " " + author.getLastName());
+        }
         author.setIdx(null);
         return authorRepository.save(author);
     }
 
-    private void isAuthorExisting(final Author author) {
-        authorRepository.findByFirstNameAndLastName(author.getFirstName(), author.getLastName())
-                .ifPresent(existingAuthor -> {
-                    throw new AuthorException("Author " + existingAuthor.getFirstName() + " " + existingAuthor.getLastName() + " already exists");
-                });
+    public boolean isAuthorExisting(final Author author) {
+        return authorRepository.findByFirstNameAndLastName(author.getFirstName(), author.getLastName()).isPresent();
     }
 
     public void deleteAuthor(final Long idx) {

@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Author} from '../author';
 import {AuthorService} from '../author.service';
 import {Router} from '@angular/router';
-import {ValidationErrors} from '@angular/forms';
 
 @Component({
   selector: 'app-author-form',
@@ -19,15 +18,13 @@ export class AuthorFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClickSubmit(authorForm) {
-    const author: Author = new Author();
-    if (authorForm.first_name === '') {
-      author.firstName = null;
-    } else {
-      author.firstName = authorForm.first_name;
+  onClickSubmit(authorForm: Author) {
+    if (authorForm.firstName === '') {
+      authorForm.firstName = undefined;
     }
-    author.lastName = authorForm.last_name;
-    this.authorService.sendData(author).subscribe(
+    authorForm.description.replace('\n', '\\n');
+    console.log(authorForm);
+    this.authorService.sendData(authorForm).subscribe(
       createdAuthor => this.router.navigate(['authors/success'], {state: {data: createdAuthor}}),
       err => this.error = err.error
     );
@@ -35,5 +32,13 @@ export class AuthorFormComponent implements OnInit {
 
   onClickError(errors) {
     console.log(errors);
+  }
+
+  resize() {
+    const area = document.getElementById('description');
+    setTimeout(() => {
+      area.style.cssText = 'height:auto;';
+      area.style.cssText = 'height:' + area.scrollHeight + 'px;';
+    }, 0);
   }
 }
