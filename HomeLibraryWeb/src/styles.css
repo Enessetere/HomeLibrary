@@ -1,16 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-  background-color: #ac8162;
+  /*background-color: #a9a9a9;*/
+  background-color: #383538;
+  text-align: center;
+  min-width: 500px;
+  overflow-x: hidden;
 }
 
-h1 {
-  font-size: 32px;
-  font-family: "Book Antiqua", serif;
-  color: #7c5132;
+.title {
   width: 100%;
-  background-color: white;
+  background-color: #d2d2d2;
   text-align: center;
   height: 10%;
+}
+
+h1, h3 {
+  font-size: 99px;
+  font-family: Impact, Charcoal, sans-serif;
+  color: #380000;
+  margin-top: 50px;
+  margin-bottom: 0;
+}
+
+h3 {
+  margin-top: 0;
+  font-size: 20px;
+  color: #440000;
+  margin-bottom: 20px;
 }
 
 .author {
@@ -23,7 +39,9 @@ h1 {
 }
 
 .return {
-  color: #1c0100;
+  color: #380000;
+  font-style: italic;
+  font-family: "Book Antiqua", sans-serif;
 }
 
 .return:hover {
