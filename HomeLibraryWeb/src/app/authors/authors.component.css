@@ -1,38 +1,35 @@
 .author_list {
   transition: 1s;
-  font-size: 19px;
+  font-size: 12px;
   font-style: italic;
-  color: #5c3112;
+  color: #591215;
 }
 
 .author_list:nth-child(even) {
-  background-color: #8c6142;
+  background-color: hsl(15, 10%, 62%);
 }
 
 .author_list:nth-child(odd) {
-  background-color: #bc9172;
+  background-color: hsl(23, 10%, 65%);
 }
 
 .author_list:hover {
   cursor: pointer;
-  background-color: #ecc1a2;
+  background-color: #928080;
   color: #3c1100;
   transition: 1s;
-}
-
-thead {
-  background-color: #8c6142;
-  cursor: default;
-  font-size: 19px;
-  font-style: italic;
-  color: #5c3112;
 }
 
 .authors {
   border: solid 1px #3c1100;
   text-align: center;
   width: 60%;
-  margin: 5px auto 20px;
+  margin: 10px auto 200px;
+  background-color: #4B0000;
+  cursor: default;
+  font-size: 25px;
+  font-style: italic;
+  color: #c5c5c5;
 }
 
 td{
@@ -40,25 +37,65 @@ td{
 }
 
 .add-author {
-  background: #5c3112;
-  margin-left: auto;
-  margin-right: auto;
+  display: inline-block;
+  background: #5A0000;
   padding: 5px;
   text-decoration: none;
   font-style: italic;
   border-radius: 5px;
-  color: #ac8162;
+  color: #c5c5c5;
   transition: 1s;
 }
 
 .add-author:hover {
   transition: 1s;
-  background-color: #7c5132;
-  color: #dcb192;
+  background-color: #7A0000;
   cursor: pointer;
 }
 
-.buttons {
-  text-align: center;
+.addition {
+  text-align: right;
 }
 
+.web-path {
+  margin: 80px auto 5px;
+  font-family: "Book Antiqua", sans-serif;
+  font-size: 17px;
+  color: #4B0000;
+  font-style: italic;
+  text-align: left;
+  width: 60%;
+}
+
+.filter {
+  margin: auto;
+  font-style: italic;
+  color: #380000;
+  width: 40%;
+  text-align: left;
+  display: inline-block;
+}
+
+.filter-input {
+  width: 40%;
+  background-color: #A89994;
+  font-family: "Book Antiqua", sans-serif;
+  font-style: italic;
+  color: #4B0000;
+  border: #380000 1px solid;
+}
+
+.filter-input:focus {
+  background-color: #AFA49D;
+}
+
+.create-author {
+  display: inline-block;
+  text-align: right;
+  width: 20%;
+}
+
+.link {
+  color: #4B0000;
+  text-decoration: none;
+}
