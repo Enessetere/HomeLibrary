@@ -1,1 +1,11 @@
-<p>contact-us works!</p>
+<div id="contact_form" class="contact-form">
+  <form id="contact" #emailForm="ngForm" (ngSubmit)="onClickSubmit(emailForm.value)" autocomplete="off">
+    <label for="sender">Name/email: </label>
+    <input id="sender" class="contact input" ngModel name="from" placeholder="Your email/name"/>
+    <br><label for="subject">Subject: </label>
+    <input id="subject" class="contact input" ngModel name="subject" placeholder="Subject"/>
+    <br><label for="message">Message: </label>
+    <input id="message" class="contact input" ngModel name="message" placeholder="Message"/>
+    <br><input type="submit" value="Send" [disabled]="emailForm.invalid">
+  </form>
+</div>

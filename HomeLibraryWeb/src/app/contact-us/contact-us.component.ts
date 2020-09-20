@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {EmailService} from '../email.service';
+import {Router} from '@angular/router';
+import {Email} from '../email';
 
 @Component({
   selector: 'app-contact-us',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactUsComponent implements OnInit {
 
-  constructor() { }
+  error = null;
+
+  constructor(private emailService: EmailService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  onClickSubmit(emailForm: Email) {
+    console.log(emailForm);
+    this.emailService.sendData(emailForm).subscribe(
+      () => this.router.navigate(['contact']),
+      err => this.error = err.error);
+  }
 }
