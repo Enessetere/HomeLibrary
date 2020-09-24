@@ -1,11 +1,17 @@
 .author-form {
-  margin: 20px;
+  margin: 30px auto 50px;
   text-align: center;
   font-style: italic;
   display: block;
   font-size: 19px;
   font-family: "Bookman Old Style", sans-serif;
   color: #4B0000;
+  background: #c5c5c5;
+  border-radius: 5px;
+  border: #CF3E03 double 5px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  width: 50%;
 }
 
 .author-input {
@@ -57,22 +63,22 @@
 .author-tooltip .author-tooltip-text {
   visibility: hidden;
   width: 240px;
-  background-color: #dcb192;
-  color: #3c1100;
+  background-color: #383538;
+  color: #c5c5c5;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
   top: -5px;
   left: 102%;
   font-size: 12px;
-  opacity: 0.6;
+  opacity: 0.85;
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
 }
 
 .author-tooltip-text {
-  border: #3c1100 1px solid;
+  border: #CF3E03 1px solid;
 }
 
 .author-tooltip .author-tooltip-text::after {
@@ -83,7 +89,7 @@
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent #3c1100 transparent transparent;
+  border-color: transparent #CF3E03 transparent transparent;
 }
 
 .author-tooltip:focus-within .author-tooltip-text {

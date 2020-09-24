@@ -1,5 +1,66 @@
 .contact-form {
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin: 20px auto 100px;
+  padding: 30px 0 30px;
   display: grid;
+  grid-template-columns: 20% 20% 40% 20%;
+  border-radius: 5px;
+  border: 5px #CF3E03 double;
+  background: #c5c5c5;
+  width: 40%;
+  font-family: "Book Antiqua", sans-serif;
+  color: #4B0000;
+  font-style: italic;
+}
+
+.label-column {
+  grid-column-start: 2;
+  text-align: right;
+}
+
+.input-column {
+  grid-column-start: 3;
+  text-align: left;
+  font-family: "Book Antiqua", sans-serif;
+  color: #4B0000;
+  font-style: italic;
+}
+
+.author-input {
+  font-family: "Book Antiqua", sans-serif;
+  font-style: italic;
+  margin: 5px 5px;
+  background-color: #A89994;
+  border: solid 1px #380000;
+  color: #4B0000;
+}
+
+.input-column:focus{
+  border: solid 1px #380000;
+  border-radius: 5px;
+  background-color: #AFA49D;
+  color: #4B0000;
+}
+
+.submit-form {
+  grid-column-start: 2;
+  grid-row-start: 5;
+  font-family: "Book Antiqua", sans-serif;
+  background: #6A0000;
+  padding: 5px;
+  font-style: italic;
+  border-radius: 5px;
+  color: #d5d5d5;
+  transition: 1s;
+}
+
+.message {
+  font-family: "Book Antiqua", sans-serif;
+  color: #4B0000;
+  overflow-wrap: break-word;
+}
+
+.submit-form:hover {
+  transition: 1s;
+  background-color: #9A0000;
+  cursor: pointer;
 }

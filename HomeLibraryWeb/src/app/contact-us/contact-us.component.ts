@@ -23,4 +23,12 @@ export class ContactUsComponent implements OnInit {
       () => this.router.navigate(['contact']),
       err => this.error = err.error);
   }
+
+  resize() {
+    const area = document.getElementById('message');
+    setTimeout(() => {
+      area.style.cssText = 'height:auto;';
+      area.style.cssText = 'height:' + area.scrollHeight + 'px;';
+    }, 0);
+  }
 }

@@ -25,7 +25,7 @@
   text-align: center;
   width: 60%;
   margin: 10px auto 200px;
-  background-color: #4B0000;
+  background-color: #5B0000;
   cursor: default;
   font-size: 25px;
   font-style: italic;
@@ -38,7 +38,7 @@ td{
 
 .add-author {
   display: inline-block;
-  background: #5A0000;
+  background: #6A0000;
   padding: 5px;
   text-decoration: none;
   font-style: italic;
@@ -49,7 +49,7 @@ td{
 
 .add-author:hover {
   transition: 1s;
-  background-color: #7A0000;
+  background-color: #8A0000;
   cursor: pointer;
 }
 
@@ -57,20 +57,10 @@ td{
   text-align: right;
 }
 
-.web-path {
-  margin: 80px auto 5px;
-  font-family: "Book Antiqua", sans-serif;
-  font-size: 17px;
-  color: #4B0000;
-  font-style: italic;
-  text-align: left;
-  width: 60%;
-}
-
 .filter {
   margin: auto;
   font-style: italic;
-  color: #380000;
+  color: #b5b5b5;
   width: 40%;
   text-align: left;
   display: inline-block;
@@ -93,9 +83,4 @@ td{
   display: inline-block;
   text-align: right;
   width: 20%;
-}
-
-.link {
-  color: #4B0000;
-  text-decoration: none;
 }

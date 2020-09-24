@@ -30,15 +30,18 @@ h3 {
 }
 
 .author {
-  width: 100%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   font-family: "Book Antiqua", sans-serif;
+  color: #4B0000;
   text-align: center;
   cursor: default;
 }
 
 .return {
+  margin-top: 20px;
+  margin-bottom: 20px;
   color: #380000;
   font-style: italic;
   font-family: "Book Antiqua", sans-serif;
@@ -46,4 +49,27 @@ h3 {
 
 .return:hover {
   cursor: pointer;
+}
+
+.web-path {
+  margin: 80px auto 5px;
+  font-family: "Book Antiqua", sans-serif;
+  font-size: 17px;
+  color: #c5c5c5;
+  font-style: italic;
+  text-align: left;
+  width: 60%;
+}
+
+.link {
+  color: #c5c5c5;
+  text-decoration: none;
+}
+
+.link:hover {
+  cursor: pointer;
+}
+
+.mouse-over-default:hover {
+  cursor: default;
 }

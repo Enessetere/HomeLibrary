@@ -1,7 +1,12 @@
-<div *ngFor="let book of books">
-  <p (click)="event(book.isbn)">{{book.title}}</p>
-  <p *ngFor="let author of book.authors">
-    {{author.firstName}} {{author.lastName}}
-  </p>
-  <p>{{book.genre}}</p>
+<div id="books" class="books">
+  <div *ngFor="let book of books" (click)="event(book)">
+    <p>{{book.title}}</p>
+    <p *ngFor="let author of book.authors" (click)="showAuthor(author)">
+      {{author.firstName}} {{author.lastName}}
+    </p>
+    <p>{{book.genre}}</p>
+  </div>
+  <div class="addition">
+    <a class="add-book" routerLink="/create_book">Create book</a>
+  </div>
 </div>

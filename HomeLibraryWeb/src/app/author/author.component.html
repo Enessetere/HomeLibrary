@@ -1,10 +1,22 @@
-<div id="author_name" class="author name">Author: {{author.firstName}} {{author.lastName}}</div>
-<div id="author_details" class="author details">Number in system: {{author.idx}}</div>
-<div id="author_description" class="author details" style="padding-bottom: 0; font-size: 18px">Description:</div>
-<div id="author_description_text" class="author details"></div>
-<div id="books" class="name books_list" *ngIf="author.books.length > 0">Books:
-  <li class="book" *ngFor="let book of author.books" (click)="event(book.isbn)">
-    {{book.title}}
-  </li>
+<div id="navigation" class="navigate">
+  <div id="path" class="web-path mouse-over-default">
+    <a class="link" routerLink="/"><span style="color: #cf3e03; font-weight: bold; font-size: 20px">H</span>ome</a> &#187;
+    <a class="link" (click)="redirect()"><span style="color: #CF3E03; font-weight: bold; font-size: 20px;">A</span>uthors</a> &#187;
+    <span id="author_path"></span>
+  </div>
 </div>
-<div id="return" class="author return" (click)="redirect()">Go to authors list</div>
+<div id="author_display" class="author display">
+  <div id="author_name" class="author name">Author: {{author.firstName}} {{author.lastName}}</div>
+  <div id="author_details" class="author details">
+    <div id="author_idx" class="author system-info">Number in system: {{author.idx}}</div>
+    <div id="author_description" class="author description-details label">Description:
+      <div id="author_description_text" class="author description-details"></div>
+    </div>
+  </div>
+  <div id="books" class="name books_list" *ngIf="author.books.length > 0">Books:
+    <li class="book" *ngFor="let book of author.books" (click)="event(book.isbn)">
+      {{book.title}}
+    </li>
+  </div>
+  <div id="return" class="author return" (click)="redirect()">Go to authors list</div>
+</div>

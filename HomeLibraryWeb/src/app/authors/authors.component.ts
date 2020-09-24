@@ -35,7 +35,6 @@ export class AuthorsComponent implements OnInit {
   }
 
   filter(value: string) {
-    console.log(value);
     if (value === null) {
       this.results = this.authors;
     } else {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {BookService} from '../book.service';
 import {Router} from '@angular/router';
 import {Book} from '../book';
+import {Author} from '../author';
+import {StorageService} from '../storage.service';
 
 @Component({
   selector: 'app-books',
@@ -10,7 +12,7 @@ import {Book} from '../book';
 })
 export class BooksComponent implements OnInit {
 
-  constructor(private bookService: BookService, private router: Router) { }
+  constructor(private bookService: BookService, private router: Router, private storage: StorageService) { }
 
   tmp = [];
   books: Book[] = [];
@@ -22,7 +24,12 @@ export class BooksComponent implements OnInit {
     });
   }
 
-  event(isbn) {
-    this.router.navigate(['books', isbn]).then();
+  event(book) {
+    this.storage.setState(book);
+    this.router.navigate(['books', book.isbn]).then();
+  }
+
+  showAuthor(author: Author) {
+    this.router.navigate(['authors', author.idx]).then();
   }
 }

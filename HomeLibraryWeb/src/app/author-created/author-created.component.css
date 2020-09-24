@@ -1,3 +1,11 @@
+.success-form {
+  margin: 80px auto 50px;
+  background: #c5c5c5;
+  border: double 5px #CF3E03;
+  border-radius: 5px;
+  width: 50%;
+}
+
 .created {
   color: #4B0000;
   font-family: "Book Antiqua", sans-serif;
