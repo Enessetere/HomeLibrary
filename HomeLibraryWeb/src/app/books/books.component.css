@@ -1,5 +1,46 @@
 .books {
   display: grid;
-  grid-column: 4;
-  grid-row: 4;
+  grid-column-gap: 1.33%;
+  grid-row-gap: 10px;
+  grid-template-columns: 24% 24% 24% 24%;
+}
+
+.book {
+  border-radius: 5px;
+  border: solid 1px #380000;
+  font-family: "Book Antiqua", sans-serif;
+  font-size: 18px;
+  color: #4B0000;
+  font-style: italic;
+  transition: 1s;
+  background: #A89994;
+}
+
+.book:hover {
+  background: #C8B9B4;
+  transition: 1s;
+}
+
+.books-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.books-label {
+  margin: 10px auto 20px;
+  font-family: "Book Antiqua", sans-serif;
+  font-size: 19px;
+  color: #4B0000;
+  font-style: italic;
+}
+
+.book-block {
+  margin: 20px auto 80px;
+  width: 60%;
+  background: #c5c5c5;
+  border: double #cf3e03 5px;
+  border-radius: 5px;
+  padding-top: 20px;
+  padding-bottom: 50px;
 }
