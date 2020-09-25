@@ -102,14 +102,7 @@
 }
 
 .author-description {
-  font-family: "Book Antiqua", sans-serif;
-  font-style: italic;
-  margin: 5px 5px;
-  background-color: #A89994;
-  border: solid 1px #380000;
-  width: 450px;
-  color: #4B0000;
-  overflow-wrap: break-word;
+  width: 60%;
 }
 
 .author-description:focus {

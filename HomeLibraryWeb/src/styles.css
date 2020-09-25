@@ -73,3 +73,27 @@ h3 {
 .mouse-over-default:hover {
   cursor: default;
 }
+
+.input {
+  font-family: "Book Antiqua", sans-serif;
+  font-style: italic;
+  margin: 5px 5px;
+  background-color: #AFA49D;
+  border: solid 1px #380000;
+  border-radius: 5px;
+  color: #4B0000;
+}
+
+.input:focus{
+  border: solid 1px #380000;
+  border-radius: 5px;
+  background-color: #BFB4AD;
+  color: #4B0000;
+}
+
+.message {
+  font-family: "Book Antiqua", sans-serif;
+  color: #4B0000;
+  overflow-wrap: break-word;
+  resize: vertical;
+}

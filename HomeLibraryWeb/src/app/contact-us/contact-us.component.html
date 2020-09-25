@@ -6,11 +6,15 @@
 </div>
 <form id="contact" class="contact-form" #emailForm="ngForm" (ngSubmit)="onClickSubmit(emailForm.value)"
       autocomplete="off">
-  <label for="sender" class="label-column">Name/email: </label>
-  <input id="sender" class="contact input input-column" ngModel name="from" placeholder="Your email/name"/>
-  <br><label for="subject" class="label-column">Subject: </label>
-  <input id="subject" class="contact input input-column" ngModel name="subject" placeholder="Subject"/>
-  <br><label for="message" class="label-column">Message: </label>
-  <textarea id="message" class="contact input input-column message" ngModel name="message" placeholder="Message" (keydown)="resize()"></textarea>
-  <br><div class="label-column"></div><br/><input type="submit" value="Send" class="submit-form" [disabled]="emailForm.invalid">
+  <div id="contact-form" class="contact-fields">
+    <div id="contact-label" class="input-column label-column">If you have any questions, please contact me.</div><br/>
+    <label for="sender" class="label-column">Email </label><br/>
+    <input id="sender" class="contact input input-column" ngModel name="from" placeholder="Your email"/>
+    <br><label for="subject" class="label-column">Subject </label><br/>
+    <input id="subject" class="contact input input-column" ngModel name="subject" placeholder="Type your subject"/>
+    <br><label for="message" class="label-column">Message </label><br/>
+    <textarea id="message" class="contact input-column input message" ngModel name="message" placeholder="Type your message"
+              (keydown)="resize()"></textarea>
+  </div><br/>
+  <input type="submit" value="Send" class="submit-form" [disabled]="emailForm.invalid">
 </form>

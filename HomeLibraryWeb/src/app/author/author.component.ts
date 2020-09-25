@@ -31,9 +31,11 @@ export class AuthorComponent implements OnInit {
           console.log(data);
         },
         err => console.log(err),
-        () => this.fillDescription()
+        () => {
+          this.fillDescription();
+          this.fillPath();
+        }
       );
-      this.fillPath();
     } else {
       this.author = this.storageService.getState();
       this.storageService.setState(undefined);

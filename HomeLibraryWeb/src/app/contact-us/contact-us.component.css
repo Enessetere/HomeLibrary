@@ -1,8 +1,8 @@
 .contact-form {
+  text-align: center;
   margin: 20px auto 100px;
-  padding: 30px 0 30px;
-  display: grid;
-  grid-template-columns: 20% 20% 40% 20%;
+  padding-top: 30px;
+  padding-bottom: 30px;
   border-radius: 5px;
   border: 5px #CF3E03 double;
   background: #c5c5c5;
@@ -13,32 +13,24 @@
 }
 
 .label-column {
-  grid-column-start: 2;
-  text-align: right;
-}
-
-.input-column {
-  grid-column-start: 3;
+  width: 60%;
   text-align: left;
   font-family: "Book Antiqua", sans-serif;
   color: #4B0000;
+  font-size: 15px;
   font-style: italic;
+  font-weight: bold;
+  margin: 15px auto 0;
 }
 
-.author-input {
+.input-column {
+  width: 60%;
+  text-align: center;
   font-family: "Book Antiqua", sans-serif;
+  color: #4B0000;
   font-style: italic;
-  margin: 5px 5px;
-  background-color: #A89994;
-  border: solid 1px #380000;
-  color: #4B0000;
-}
-
-.input-column:focus{
-  border: solid 1px #380000;
-  border-radius: 5px;
-  background-color: #AFA49D;
-  color: #4B0000;
+  font-size: 16px;
+  margin: 2px auto 15px;
 }
 
 .submit-form {
@@ -46,17 +38,11 @@
   grid-row-start: 5;
   font-family: "Book Antiqua", sans-serif;
   background: #6A0000;
-  padding: 5px;
+  padding: 5px 40px;
   font-style: italic;
   border-radius: 5px;
   color: #d5d5d5;
   transition: 1s;
-}
-
-.message {
-  font-family: "Book Antiqua", sans-serif;
-  color: #4B0000;
-  overflow-wrap: break-word;
 }
 
 .submit-form:hover {
