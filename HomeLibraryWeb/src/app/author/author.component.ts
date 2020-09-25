@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthorService} from '../author.service';
 import {Author} from '../author';
 import {StorageService} from '../storage.service';
-import {range} from 'rxjs';
+import {DisplayService} from '../display.service';
 
 @Component({
   selector: 'app-author',
@@ -18,7 +18,8 @@ export class AuthorComponent implements OnInit {
     private route: ActivatedRoute,
     private service: AuthorService,
     private router: Router,
-    private storageService: StorageService) {
+    private storageService: StorageService,
+    private displayService: DisplayService) {
   }
 
   ngOnInit(): void {
@@ -28,7 +29,6 @@ export class AuthorComponent implements OnInit {
       this.service.getSingleRecord(idx).subscribe(
         data => {
           this.author.convert(Object.values(data));
-          console.log(data);
         },
         err => console.log(err),
         () => {
@@ -50,19 +50,7 @@ export class AuthorComponent implements OnInit {
 
   fillPath() {
     document.getElementById('author_path').innerHTML =
-      this.changeDisplay(this.author.firstName) + ' ' + this.changeDisplay(this.author.lastName);
-  }
-
-  changeDisplay(name: string) {
-    let out = '';
-    for (let idx = 0; idx < name.length; idx++) {
-      if (name.charAt(idx).match(/[A-ZŚĆŻŹĄĘŁŃÓ]/g)) {
-        out = out.concat('<span style="color: #CF3E03; font-weight: bold; font-size: 20px">', name.charAt(idx), '</span>');
-      } else {
-        out = out.concat(name.charAt(idx));
-      }
-    }
-    return out;
+      this.displayService.changeDisplay(this.author.firstName) + ' ' + this.displayService.changeDisplay(this.author.lastName);
   }
 
   redirect() {
@@ -74,7 +62,6 @@ export class AuthorComponent implements OnInit {
   }
 
   isEmpty(): boolean {
-    console.log(this.author.books);
     return false;
   }
 }
