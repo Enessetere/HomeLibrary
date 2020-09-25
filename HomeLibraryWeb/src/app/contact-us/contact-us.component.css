@@ -30,6 +30,9 @@
   color: #4B0000;
   font-style: italic;
   font-size: 16px;
+}
+
+.input-single-line {
   margin: 2px auto 15px;
 }
 
