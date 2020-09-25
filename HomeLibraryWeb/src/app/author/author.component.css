@@ -1,35 +1,37 @@
 .name {
   padding-top: 30px;
-  color: #3c1100;
   font-style: italic;
   font-weight: bold;
   font-size: 25px;
   padding-bottom: 30px;
+  border-bottom: 1px solid #7B0000;
 }
 
 .details {
-  color: #1c0100;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 30px;
+  border-bottom: #7B0000 1px solid;
   font-size: 20px;
-  padding-bottom: 50px;
 }
 @media (min-width: 600px) {
   .books_list {
-    width: 50%;
     text-align: center;
-    padding: 0;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
+    border-bottom: none;
   }
 }
 
 @media (max-width: 600px) {
   .books_list {
     text-align: center;
-    padding: 0;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
+    border-bottom: none;
   }
 }
 
@@ -38,6 +40,8 @@
 }
 
 .book {
+  margin: auto;
+  width: 50%;
   font-weight: normal;
   list-style-type: none;
   font-size: 25px;
@@ -46,7 +50,28 @@
 
 .book:hover {
   cursor: pointer;
-  color: #dcb192;
-  background: #3c1100;
+  background: #B8A9A4;
   transition: 1s;
+}
+
+.display {
+  margin: 20px auto 100px;
+  width: 60%;
+  border: 5px double #CF3E03;
+  border-radius: 5px;
+  background: #c5c5c5;
+}
+
+.system-info {
+  font-size: 12px;
+}
+
+.description-details {
+  font-size: 23px;
+}
+
+.label {
+  padding-top: 10px;
+  font-size: 18px;
+  font-style: italic;
 }

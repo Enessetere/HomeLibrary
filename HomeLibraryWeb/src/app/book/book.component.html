@@ -3,5 +3,5 @@
   <p>{{book.isbn}}</p>
   <p>{{book.count}}</p>
   <p>{{book.genre}}</p>
-  <p *ngFor="let author of book.authors">{{author.firstName}} {{author.lastName}}</p>
+  <p *ngFor="let author of book.authors" (click)="redirectToAuthor(author.idx)">{{author.firstName}} {{author.lastName}}</p>
 </div>

@@ -5,11 +5,11 @@
 .nav-link {
   font-family: "Book Antiqua", sans-serif;
   font-style: italic;
-  font-size: 20px;
+  font-size: 25px;
   display: inline-flex;
-  background-color: #5c3112;
+  background-color: #5B0000;
   text-decoration: none;
-  color: #ac8162;
+  color: #c5c5c5;
   margin: 5px;
   padding: 5px;
   transition: 1s;
@@ -17,7 +17,6 @@
 }
 
 .nav-link:hover {
-  background-color: #7c5132;
-  color: #dcb192;
+  background-color: #8c0000;
   transition: 1s;
 }

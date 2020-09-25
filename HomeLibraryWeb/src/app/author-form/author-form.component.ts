@@ -30,10 +30,6 @@ export class AuthorFormComponent implements OnInit {
     );
   }
 
-  onClickError(errors) {
-    console.log(errors);
-  }
-
   resize() {
     const area = document.getElementById('description');
     setTimeout(() => {

@@ -1,11 +1,17 @@
+<div id="navigation" class="navigate">
+  <div id="path" class="web-path mouse-over-default">
+    <a class="link" routerLink="/"><span style="color: #cf3e03; font-weight: bold; font-size: 20px">H</span>ome</a>
+    &#187; <a class="link" routerLink="/authors"><span style="color: #CF3E03; font-weight: bold; font-size: 20px;">A</span>uthors</a>
+    &#187; <span style="color: #CF3E03; font-weight: bold; font-size: 20px;">C</span>reate author
+  </div>
+</div>
 <form class="author-form" #authorForm="ngForm" (ngSubmit)="onClickSubmit(authorForm.value)" autocomplete="off">
   <div id="invalid_name" class="author-error"
-       *ngIf="(authorForm.invalid && (authorForm.dirty || authorForm.touched)) || error != null"
-       (click)="onClickError(authorForm)">Correct parameters<br/></div>
+       *ngIf="(authorForm.invalid && (authorForm.dirty || authorForm.touched)) || error != null">Correct parameters<br/></div>
   <div id="global_error_message" class="author-error" *ngIf="error != null">{{error.details}}<br/><br/></div>
   <div id="first-name-input-box" class="author-tooltip">
-    <label for="firstName" (click)="onClickError(authorForm)">First name: </label>
-    <input class="author-input" id="firstName" type="text" name="firstName" placeholder="First name" ngModel
+    <label for="firstName">First name: </label>
+    <input class="input" id="firstName" type="text" name="firstName" placeholder="First name" ngModel
            minlength="2" maxlength="25"
            oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.substring(1)"
            (input)="error = null"
@@ -20,7 +26,7 @@
   <br/>
   <div id="last-name-input-box" class="author-tooltip">
     <label for="lastName">Last name: </label>
-    <input class="author-input" id="lastName" type="text" name="lastName" placeholder="Last name" ngModel
+    <input class="input" id="lastName" type="text" name="lastName" placeholder="Last name" ngModel
            required minlength="2" maxlength="25"
            oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.substring(1)"
            (input)="error = null"/>
@@ -34,9 +40,10 @@
     </span>
   </div>
   <br/>
-  <div id="description-input-box" class="author-tooltip">
+  <br/>
+  <div id="description-input-box">
     <label for="description">Description:</label><br/>
-    <textarea id="description" type="text" name="description" placeholder="Description..." class="author-description" ngModel
+    <textarea id="description" type="text" name="description" placeholder="Description..." class="author-description message input" ngModel
               (keydown)="resize()"></textarea>
   </div>
   <br/>

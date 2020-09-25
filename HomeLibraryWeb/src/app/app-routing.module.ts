@@ -8,6 +8,7 @@ import {AuthorComponent} from './author/author.component';
 import {AuthorCreatedComponent} from './author-created/author-created.component';
 import {BooksComponent} from './books/books.component';
 import {BookComponent} from './book/book.component';
+import {BookFormComponent} from './book-form/book-form.component';
 
 const routes: Routes = [
   {path: ``, component: HomeComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'authors/success', component: AuthorCreatedComponent},
   {path: 'authors/:idx', component: AuthorComponent},
   {path: `books`, component: BooksComponent},
+  {path: `create_book`, component: BookFormComponent},
   {path: `books/:isbn`, component: BookComponent}
 ];
 

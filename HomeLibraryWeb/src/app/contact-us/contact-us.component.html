@@ -1,1 +1,20 @@
-<p>contact-us works!</p>
+<div id="navigation" class="navigate">
+  <div id="path" class="web-path mouse-over-default">
+    <a class="link" routerLink="/"><span style="color: #cf3e03; font-weight: bold; font-size: 20px">H</span>ome</a>
+    &#187; <span style="color: #CF3E03; font-weight: bold; font-size: 20px;">C</span>ontact
+  </div>
+</div>
+<form id="contact" class="contact-form" #emailForm="ngForm" (ngSubmit)="onClickSubmit(emailForm.value)"
+      autocomplete="off">
+  <div id="contact-form" class="contact-fields">
+    <div id="contact-label" class="input-column label-column">If you have any questions, please contact me.</div><br/>
+    <label for="sender" class="label-column">Email </label><br/>
+    <input id="sender" class="contact input input-column" ngModel name="from" placeholder="Your email"/>
+    <br><label for="subject" class="label-column">Subject </label><br/>
+    <input id="subject" class="contact input input-column" ngModel name="subject" placeholder="Type your subject"/>
+    <br><label for="message" class="label-column">Message </label><br/>
+    <textarea id="message" class="contact input-column input message" ngModel name="message" placeholder="Type your message"
+              (keydown)="resize()"></textarea>
+  </div><br/>
+  <input type="submit" value="Send" class="submit-form" [disabled]="emailForm.invalid">
+</form>

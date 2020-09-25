@@ -1,27 +1,33 @@
 .author-form {
-  margin: 20px;
+  margin: 30px auto 50px;
   text-align: center;
   font-style: italic;
   display: block;
   font-size: 19px;
   font-family: "Bookman Old Style", sans-serif;
-  color: #5c3112;
+  color: #4B0000;
+  background: #c5c5c5;
+  border-radius: 5px;
+  border: #CF3E03 double 5px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  width: 50%;
 }
 
 .author-input {
+  font-family: "Book Antiqua", sans-serif;
   font-style: italic;
   margin: 5px 5px;
-  background-color: #ac8162;
-  border: dotted 1px #3c1100;
-  border-radius: 5px;
-  color: #5c3112;
+  background-color: #A89994;
+  border: solid 1px #380000;
+  color: #4B0000;
 }
 
 .author-input:focus{
-  border: dotted 1px #3c1100;
+  border: solid 1px #380000;
   border-radius: 5px;
-  background-color: #dcb192;
-  color: #3c1100;
+  background-color: #AFA49D;
+  color: #4B0000;
 }
 
 .author-save {
@@ -29,17 +35,17 @@
   font-style: italic;
   font-size: 19px;
   font-family: "Book Antiqua", sans-serif;
-  background-color: #5c3112;
+  background-color: #5A0000;
   border-radius: 5px;
   border: none;
-  color: #ac8162;
+  color: #c5c5c5;
   transition: 1s;
 }
 
 .author-save:hover {
   transition: 1s;
-  color: #dcb192;
-  background-color: #7c5132;
+  color: #c5c5c5;
+  background-color: #7A0000;
 }
 
 .author-error {
@@ -57,22 +63,22 @@
 .author-tooltip .author-tooltip-text {
   visibility: hidden;
   width: 240px;
-  background-color: #dcb192;
-  color: #3c1100;
+  background-color: #383538;
+  color: #c5c5c5;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
   top: -5px;
   left: 102%;
   font-size: 12px;
-  opacity: 0.6;
+  opacity: 0.85;
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
 }
 
 .author-tooltip-text {
-  border: #3c1100 1px solid;
+  border: #CF3E03 1px solid;
 }
 
 .author-tooltip .author-tooltip-text::after {
@@ -83,7 +89,7 @@
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent #3c1100 transparent transparent;
+  border-color: transparent #CF3E03 transparent transparent;
 }
 
 .author-tooltip:focus-within .author-tooltip-text {
@@ -96,19 +102,11 @@
 }
 
 .author-description {
-  font-style: italic;
-  margin: 5px 5px;
-  background-color: #ac8162;
-  border: dotted 1px #3c1100;
-  border-radius: 5px;
-  width: 500px;
-  color: #5c3112;
-  overflow-wrap: break-word;
+  width: 60%;
 }
 
 .author-description:focus {
-  border: dotted 1px #3c1100;
-  border-radius: 5px;
-  background-color: #dcb192;
-  color: #3c1100;
+  border: solid 1px #4B0000;
+  background-color: #AFA49D;
+  color: #4B0000;
 }
