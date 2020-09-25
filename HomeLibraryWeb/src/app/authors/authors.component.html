@@ -1,26 +1,30 @@
 <div id="navigation" class="navigate">
   <div id="path" class="web-path mouse-over-default">
-    <a class="link" routerLink="/"><span style="color: #cf3e03; font-weight: bold; font-size: 20px">H</span>ome</a> &#187; <span style="color: #CF3E03; font-weight: bold; font-size: 20px;">A</span>uthors
+    <a class="link" routerLink="/"><span style="color: #cf3e03; font-weight: bold; font-size: 20px">H</span>ome</a>
+    &#187; <span style="color: #CF3E03; font-weight: bold; font-size: 20px;">A</span>uthors
   </div>
+</div>
+<div id="table-block" class="table-block">
   <div id="filter" class="filter">
     <label for="filter_input">Filter by name: </label>
-    <input id="filter_input" class="filter-input" type="text" #filterInput placeholder="Filter" (keyup)="filter(filterInput.value)"/>
+    <input id="filter_input" class="filter-input" type="text" #filterInput placeholder="Filter"
+           (keyup)="filter(filterInput.value)"/>
   </div>
   <div id="create_author" class="create-author">
     <a class="add-author" routerLink="/create_author">Create author</a>
   </div>
+  <table class="authors">
+    <thead>
+    <tr>
+      <td (mouseup)="fnSort()" onselectstart="return false" onselect="return false">First Name</td>
+      <td (mouseup)="lnSort()" onselectstart="return false" onselect="return false">Last Name</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="author_list" *ngFor="let author of results" (click)="event(author)">
+      <td> {{author.firstName}}</td>
+      <td> {{author.lastName}}</td>
+    </tr>
+    </tbody>
+  </table>
 </div>
-<table class="authors">
-  <thead>
-  <tr>
-    <td (mouseup)="fnSort()" onselectstart="return false" onselect="return false">First Name</td>
-    <td (mouseup)="lnSort()" onselectstart="return false" onselect="return false">Last Name</td>
-  </tr>
-  </thead>
-  <tbody>
-  <tr class="author_list" *ngFor="let author of results" (click)="event(author)">
-    <td> {{author.firstName}}</td>
-    <td> {{author.lastName}}</td>
-  </tr>
-  </tbody>
-</table>

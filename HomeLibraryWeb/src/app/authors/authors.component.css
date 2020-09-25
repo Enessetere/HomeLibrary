@@ -23,8 +23,8 @@
 .authors {
   border: solid 1px #3c1100;
   text-align: center;
-  width: 60%;
-  margin: 10px auto 200px;
+  width: 90%;
+  margin: 10px auto 20px;
   background-color: #5B0000;
   cursor: default;
   font-size: 25px;
@@ -60,14 +60,14 @@ td{
 .filter {
   margin: auto;
   font-style: italic;
-  color: #b5b5b5;
-  width: 40%;
+  color: #7B0000;
+  width: 70%;
   text-align: left;
   display: inline-block;
 }
 
 .filter-input {
-  width: 40%;
+  width: 50%;
   background-color: #A89994;
   font-family: "Book Antiqua", sans-serif;
   font-style: italic;
@@ -83,4 +83,13 @@ td{
   display: inline-block;
   text-align: right;
   width: 20%;
+}
+
+.table-block {
+  width: 60%;
+  background: #c5c5c5;
+  border: #cf3e03 double 5px;
+  border-radius: 5px;
+  padding: 30px 0;
+  margin: 20px auto 80px;
 }
