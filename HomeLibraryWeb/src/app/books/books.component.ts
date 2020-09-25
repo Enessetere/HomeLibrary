@@ -28,8 +28,4 @@ export class BooksComponent implements OnInit {
     this.storage.setState(book);
     this.router.navigate(['books', book.isbn]).then();
   }
-
-  showAuthor(author: Author) {
-    this.router.navigate(['authors', author.idx]).then();
-  }
 }

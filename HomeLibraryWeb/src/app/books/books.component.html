@@ -1,12 +1,23 @@
-<div id="books" class="books">
-  <div *ngFor="let book of books" (click)="event(book)">
-    <p>{{book.title}}</p>
-    <p *ngFor="let author of book.authors" (click)="showAuthor(author)">
-      {{author.firstName}} {{author.lastName}}
-    </p>
-    <p>{{book.genre}}</p>
+<div id="navigation">
+  <div id="path" class="web-path mouse-over-default">
+    <a class="link" routerLink="/"><span style="color: #cf3e03; font-weight: bold; font-size: 20px">H</span>ome</a>
+    &#187; <span style="color: #CF3E03; font-weight: bold; font-size: 20px;">B</span>ooks
   </div>
-  <div class="addition">
-    <a class="add-book" routerLink="/create_book">Create book</a>
+</div>
+<div id="book-block" class="book-block">
+  <div id="books-label" class="books-label mouse-over-default">List of your books</div>
+  <div class="books-list">
+    <div id="books" class="books mouse-over-default">
+      <div class="book" *ngFor="let book of books" (click)="event(book)">
+        <p>{{book.title}}</p>
+        <p *ngFor="let author of book.authors">
+          {{author.firstName}} {{author.lastName}}
+        </p>
+        <p>{{book.genre}}</p>
+      </div>
+      <!--  <div class="addition">-->
+      <!--    <a class="add-book" routerLink="/create_book">Create book</a>-->
+      <!--  </div>-->
+    </div>
   </div>
 </div>
