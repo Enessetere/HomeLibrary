@@ -2,9 +2,11 @@ package com.smolderingdrake.homelibrarycore.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smolderingdrake.homelibrarycore.domain.Author;
 import com.smolderingdrake.homelibrarycore.model.AuthorDto;
 import com.smolderingdrake.homelibrarycore.model.AuthorModel;
 import com.smolderingdrake.homelibrarycore.model.AuthorModels;
+import com.smolderingdrake.homelibrarycore.model.BookDto;
 import com.smolderingdrake.homelibrarycore.service.AuthorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,11 +23,25 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 class AuthorControllerTest {
+
+    private static final String JANE = "Jane";
+    private static final String DOE = "Doe";
+    private static final String SMITH = "Smith";
+    private static final String DESCRIPTION = "Criminal writer";
+
+    private static final Author AUTHOR_TEST_DATA_1 = Author.builder().firstName(JANE).lastName(DOE).description(DESCRIPTION).build();
+    private static final Author AUTHOR_TEST_DATA_2 = Author.builder().lastName(SMITH).description(DESCRIPTION).build();
+    private static final AuthorModel AUTHOR_MODEL_TEST_DATA_1 = AuthorModel.builder().firstName(JANE).lastName(DOE).description(DESCRIPTION).build();
+    private static final AuthorModel AUTHOR_MODEL_TEST_DATA_2 = AuthorModel.builder().lastName(SMITH).description(DESCRIPTION).build();
+    private static final List<Author> AUTHOR_LIST_WITH_SINGLE_ELEMENT = List.of(AUTHOR_TEST_DATA_1);
+    private static final List<Author> AUTHOR_LIST_WITH_TWO_ELEMENTS = List.of(AUTHOR_TEST_DATA_1, AUTHOR_TEST_DATA_2);
+    private static final List<Author> AUTHOR_LIST_WITH_NO_ELEMENTS = List.of();
 
     private MockMvc mockMvc;
 
@@ -36,10 +52,13 @@ class AuthorControllerTest {
 
     @Mock
     private AuthorDto authorDto;
-/*
+
+    @Mock
+    private BookDto bookDto;
+
     @BeforeEach
     void init() {
-        AuthorController noProxyAuthorController = new AuthorController(authorService, authorDto);
+        AuthorController noProxyAuthorController = new AuthorController(authorService, authorDto, bookDto);
         final StandaloneMockMvcBuilder mvcBuilder = MockMvcBuilders.standaloneSetup(noProxyAuthorController);
         this.mockMvc = mvcBuilder.build();
         objectMapper = new ObjectMapper();
@@ -47,167 +66,159 @@ class AuthorControllerTest {
 
     @Test
     void shouldReturnAuthorModelsWithOneRecord() throws Exception {
-        final AuthorModel author = AuthorModel.builder()
-                .idx(1L)
-                .firstName("Jane")
-                .lastName("Doe")
-                .build();
-        final AuthorModels authors = new AuthorModels(List.of(author));
-        when(authorService.getAllAuthors()).thenReturn(authors);
+        // given
+        when(authorService.getAllAuthors()).thenReturn(AUTHOR_LIST_WITH_SINGLE_ELEMENT);
+        when(authorDto.authorToAuthorModel(any())).thenReturn(AUTHOR_MODEL_TEST_DATA_1);
 
-
+        // when
         final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/authors")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
+        // then
         final AuthorModels models = objectMapper.readValue(
                 mvcResult.getResponse().getContentAsByteArray(),
                 new TypeReference<>() {
                 });
-        assertThat(models).isNotNull();
-        assertThat(models).isExactlyInstanceOf(AuthorModels.class);
-        assertThat(models.getAuthors().get(0)).isExactlyInstanceOf(AuthorModel.class);
-        assertThat(models.getAuthors().get(0)).isEqualTo(author);
-        assertThat(models).isEqualTo(authors);
+        assertThat(models).isNotNull().isExactlyInstanceOf(AuthorModels.class);
+        assertThat(models.getAuthors().get(0)).isExactlyInstanceOf(AuthorModel.class).isEqualTo(AUTHOR_MODEL_TEST_DATA_1);
         assertThat(models.getAuthors()).hasSize(1);
     }
 
     @Test
     void shouldReturnAuthorModelsWithMultipleRecords() throws Exception {
-        final AuthorModel authorWithBothNames = AuthorModel.builder().idx(1L).firstName("Jane").lastName("Doe").build();
-        final AuthorModel authorWithLastName = AuthorModel.builder().idx(2L).lastName("Doe").build();
-        final AuthorModels authors = new AuthorModels(List.of(authorWithBothNames, authorWithLastName));
-        when(authorService.getAllAuthors()).thenReturn(authors);
+        // given
+        when(authorService.getAllAuthors()).thenReturn(AUTHOR_LIST_WITH_TWO_ELEMENTS);
+        when(authorDto.authorToAuthorModel(AUTHOR_TEST_DATA_1)).thenReturn(AUTHOR_MODEL_TEST_DATA_1);
+        when(authorDto.authorToAuthorModel(AUTHOR_TEST_DATA_2)).thenReturn(AUTHOR_MODEL_TEST_DATA_2);
 
+        //when
         final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/authors").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
+        //than
         final AuthorModels result = objectMapper.readValue(
                 mvcResult.getResponse().getContentAsByteArray(),
                 new TypeReference<>() {
                 });
-        assertThat(result).isNotNull();
-        assertThat(result).isExactlyInstanceOf(AuthorModels.class);
-        assertThat(result.getAuthors()).isNotNull();
-        assertThat(result.getAuthors()).hasSize(2);
-        assertThat(result.getAuthors().get(0)).isExactlyInstanceOf(AuthorModel.class);
-        assertThat(result.getAuthors().get(0)).isEqualTo(authorWithBothNames);
-        assertThat(result.getAuthors().get(1)).isExactlyInstanceOf(AuthorModel.class);
-        assertThat(result.getAuthors().get(1)).isEqualTo(authorWithLastName);
+        assertThat(result).isNotNull().isExactlyInstanceOf(AuthorModels.class);
+        assertThat(result.getAuthors()).isNotNull().hasSize(2);
+        assertThat(result.getAuthors().get(0)).isExactlyInstanceOf(AuthorModel.class).isEqualTo(AUTHOR_MODEL_TEST_DATA_1);
+        assertThat(result.getAuthors().get(1)).isExactlyInstanceOf(AuthorModel.class).isEqualTo(AUTHOR_MODEL_TEST_DATA_2);
     }
 
     @Test
     void shouldReturnAuthorModelsWithEmptyList() throws Exception {
-        final AuthorModels authors = new AuthorModels();
-        when(authorService.getAllAuthors()).thenReturn(authors);
+        // given
+        when(authorService.getAllAuthors()).thenReturn(AUTHOR_LIST_WITH_NO_ELEMENTS);
 
+        // when
         final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/authors")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
+        // than
         final AuthorModels models = objectMapper.readValue(
                 mvcResult.getResponse().getContentAsByteArray(),
                 new TypeReference<>() {
                 });
-        assertThat(models).isNotNull();
-        assertThat(models).isExactlyInstanceOf(AuthorModels.class);
-        assertThat(models.getAuthors()).isNull();
-        assertThat(models).isEqualTo(authors);
+        assertThat(models).isNotNull().isExactlyInstanceOf(AuthorModels.class);
+        assertThat(models.getAuthors()).hasSize(0);
     }
 
     @Test
     void shouldReturnAuthorByIdxWithFirstAndLastName() throws Exception {
-        final Long idx = 1L;
-        final String firstName = "Jane";
-        final String lastName = "Doe";
-        final AuthorModel author = AuthorModel.builder().idx(idx).firstName(firstName).lastName(lastName).build();
-        when(authorService.getByIdx(idx)).thenReturn(author);
+        // given
+        when(authorService.getByIdx(any(Long.class))).thenReturn(AUTHOR_TEST_DATA_1);
+        when(authorDto.authorToAuthorModel(any(Author.class))).thenReturn(AUTHOR_MODEL_TEST_DATA_1);
 
-        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/" + idx)
+        // when
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/" + any(Long.class))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
+        // then
         final AuthorModel model = objectMapper.readValue(
                 mvcResult.getResponse().getContentAsByteArray(),
                 new TypeReference<>() {
                 });
-        assertThat(model).isNotNull();
-        assertThat(model).isExactlyInstanceOf(AuthorModel.class);
-        assertThat(model).isEqualTo(author);
+        assertThat(model).isNotNull().isExactlyInstanceOf(AuthorModel.class).isEqualTo(AUTHOR_MODEL_TEST_DATA_1);
     }
 
     @Test
     void shouldReturnAuthorByIdxWithLastName() throws Exception {
-        final Long idx = 1L;
-        final String lastName = "Doe";
-        final AuthorModel author = AuthorModel.builder().idx(idx).lastName(lastName).build();
-        when(authorService.getByIdx(idx)).thenReturn(author);
+        // given
+        when(authorService.getByIdx(any(Long.class))).thenReturn(AUTHOR_TEST_DATA_2);
+        when(authorDto.authorToAuthorModel(AUTHOR_TEST_DATA_2)).thenReturn(AUTHOR_MODEL_TEST_DATA_2);
 
-        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/" + idx)
+        // when
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/" + any(Long.class))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
+        // then
         final AuthorModel model = objectMapper.readValue(
                 mvcResult.getResponse().getContentAsByteArray(),
                 new TypeReference<>() {
                 });
-        assertThat(model).isNotNull();
-        assertThat(model).isExactlyInstanceOf(AuthorModel.class);
-        assertThat(model).isEqualTo(author);
+        assertThat(model).isNotNull().isExactlyInstanceOf(AuthorModel.class).isEqualTo(AUTHOR_MODEL_TEST_DATA_2);
     }
 
     @Test
     void shouldCreateNewAuthorWithFirstAndLastName() throws Exception {
-        final Long idx = 1L;
-        final String firstName = "Jane";
-        final String lastName = "Doe";
-        final AuthorModel result = AuthorModel.builder().idx(idx).firstName(firstName).lastName(lastName).build();
-        final AuthorModel input = AuthorModel.builder().firstName(firstName).lastName(lastName).build();
-        when(authorService.createNewAuthor(input)).thenReturn(result);
+        // given
+        when(authorService.createNewAuthor(AUTHOR_TEST_DATA_1)).thenReturn(AUTHOR_TEST_DATA_1);
+        when(authorDto.authorModelToAuthor(AUTHOR_MODEL_TEST_DATA_1)).thenReturn(AUTHOR_TEST_DATA_1);
+        when(authorDto.authorToAuthorModel(AUTHOR_TEST_DATA_1)).thenReturn(AUTHOR_MODEL_TEST_DATA_1);
 
+        // when
         final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/authors")
-                .content(objectMapper.writeValueAsString(input))
+                .content(objectMapper.writeValueAsString(AUTHOR_MODEL_TEST_DATA_1))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andReturn();
+
+        // then
         final AuthorModel actualResult = objectMapper.readValue(
                 mvcResult.getResponse().getContentAsByteArray(),
                 new TypeReference<>() {
                 });
-
-        assertThat(actualResult).isNotNull();
-        assertThat(actualResult).isExactlyInstanceOf(AuthorModel.class);
-        assertThat(actualResult).isEqualTo(result);
+        assertThat(actualResult)
+                .isNotNull()
+                .isExactlyInstanceOf(AuthorModel.class)
+                .isEqualTo(AUTHOR_MODEL_TEST_DATA_1);
     }
 
     @Test
     void shouldCreateNewAuthorWithLastName() throws Exception {
-        final Long idx = 1L;
-        final String lastName = "Doe";
-        final AuthorModel input = AuthorModel.builder().lastName(lastName).build();
-        final AuthorModel result = AuthorModel.builder().idx(idx).lastName(lastName).build();
-        when(authorService.createNewAuthor(input)).thenReturn(result);
+        // given
+        when(authorService.createNewAuthor(AUTHOR_TEST_DATA_2)).thenReturn(AUTHOR_TEST_DATA_2);
+        when(authorDto.authorToAuthorModel(AUTHOR_TEST_DATA_2)).thenReturn(AUTHOR_MODEL_TEST_DATA_2);
+        when(authorDto.authorModelToAuthor(AUTHOR_MODEL_TEST_DATA_2)).thenReturn(AUTHOR_TEST_DATA_2);
 
+        // when
         final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/authors")
-                .content(objectMapper.writeValueAsString(input))
+                .content(objectMapper.writeValueAsString(AUTHOR_MODEL_TEST_DATA_2))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andReturn();
 
+        // then
         final AuthorModel actualResult = objectMapper.readValue(
                 mvcResult.getResponse().getContentAsByteArray(),
                 new TypeReference<>() {
                 });
-        assertThat(actualResult).isNotNull();
-        assertThat(actualResult).isExactlyInstanceOf(AuthorModel.class);
-        assertThat(actualResult).isEqualTo(result);
+        assertThat(actualResult)
+                .isNotNull()
+                .isExactlyInstanceOf(AuthorModel.class)
+                .isEqualTo(AUTHOR_MODEL_TEST_DATA_2);
     }
 
     @Test
@@ -262,10 +273,8 @@ class AuthorControllerTest {
 
     @Test
     void shouldReturnNoContentStatusInPatchMethod() throws Exception {
-        final AuthorModel author = AuthorModel.builder().firstName("Jane").build();
-
-        mockMvc.perform(MockMvcRequestBuilders.patch("/api/authors/1")
-                    .content(objectMapper.writeValueAsString(author))
+        mockMvc.perform(MockMvcRequestBuilders.patch("/api/authors/" + any(Long.class))
+                    .content(objectMapper.writeValueAsString(AUTHOR_MODEL_TEST_DATA_1))
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent())
@@ -274,10 +283,9 @@ class AuthorControllerTest {
 
     @Test
     void shouldReturnNoContentStatusInDeleteMethod() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/authors/1")
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/authors/" + any(Long.class))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent())
                 .andReturn();
     }
- */
 }

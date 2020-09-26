@@ -11,6 +11,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.nonNull;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api/authors")
@@ -49,7 +51,7 @@ public class AuthorController {
     }
 
     private List<BookModel> convertBooksToBookModels(final List<Book> books) {
-        return books.stream()
+        return (!nonNull(books)) ? null : books.stream()
                 .map(bookDto::bookToBookModel)
                 .collect(Collectors.toList());
     }
