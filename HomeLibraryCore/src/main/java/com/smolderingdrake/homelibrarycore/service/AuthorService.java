@@ -36,7 +36,7 @@ public class AuthorService {
 
     public Author createNewAuthor(final Author author) {
         if (isAuthorExisting(author)) {
-            throw new AuthorException("Author " + author.getFirstName() + " " + author.getLastName());
+            throw new AuthorException("Author " + author.getFirstName() + " " + author.getLastName() + " already exists");
         }
         author.setIdx(null);
         return authorRepository.save(author);
