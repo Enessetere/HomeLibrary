@@ -9,6 +9,7 @@ import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 @Profile("email")
+@CrossOrigin
 @RestController
 @RequestMapping("/api/contact")
 public class ContactController {
