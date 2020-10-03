@@ -45,6 +45,7 @@ h3 {
   color: #380000;
   font-style: italic;
   font-family: "Book Antiqua", sans-serif;
+  font-size: 16px;
 }
 
 .return:hover {
@@ -75,6 +76,7 @@ h3 {
 }
 
 .input {
+  width: 40%;
   font-family: "Book Antiqua", sans-serif;
   font-style: italic;
   margin: 5px 5px;
@@ -82,6 +84,10 @@ h3 {
   border: solid 1px #380000;
   border-radius: 5px;
   color: #4B0000;
+}
+
+.increased-width {
+  width: 60%;
 }
 
 .input:focus{
@@ -101,4 +107,121 @@ h3 {
   color: #4B0000;
   overflow-wrap: break-word;
   resize: vertical;
+}
+
+.window {
+  width: 60%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin: 124px auto 100px;
+  background: #c5c5c5;
+  border-radius: 5px;
+  border: 5px double #cf3e03;
+  text-align: center;
+}
+
+.smaller-window {
+  width: 40%;
+}
+
+.small-top-margin {
+  margin-top: 20px;
+}
+
+.mouse-over-hand:hover {
+  cursor: pointer;
+}
+
+.book-style-large {
+  font-family: "Book Antiqua", sans-serif;
+  font-size: 27px;
+  font-style: italic;
+  color: #4B0000;
+  overflow-wrap: break-word;
+}
+
+.book-style-normal {
+  font-size: 22px;
+}
+
+.smaller-font {
+  font-size: 18px;
+}
+
+.button {
+  display: inline-block;
+  background: #6A0000;
+  padding: 5px;
+  text-decoration: none;
+  font-style: italic;
+  border-radius: 5px;
+  color: #c5c5c5;
+  transition: 1s;
+}
+
+.button:hover {
+  transition: 1s;
+  background-color: #8A0000;
+  cursor: pointer;
+}
+
+.inline {
+  width: 20%;
+  text-align: right;
+  display: inline-block;
+}
+
+.created {
+  padding-bottom: 50px;
+  padding-top: 50px;
+  font-size: 20px;
+}
+
+.validation-failed {
+  color: #BA0000;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: max-content;
+  background-color: #686568;
+  color: #c5c5c5;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 5px;
+  top: -5px;
+  left: 102%;
+  font-size: 16px;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip-text {
+  border: #CF3E03 1px solid;
+}
+
+.tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #CF3E03 transparent transparent;
+}
+
+.tooltip:focus-within .tooltip-text {
+  visibility: visible;
+}
+
+.cross-tick {
+  width: 11px;
+  height: 11px;
 }

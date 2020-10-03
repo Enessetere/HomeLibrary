@@ -4,11 +4,11 @@
     &#187; <span style="color: #CF3E03; font-weight: bold; font-size: 20px;">B</span>ooks
   </div>
 </div>
-<div id="book-block" class="book-block">
-  <div id="books-label" class="books-label mouse-over-default">List of your books</div>
+<div id="book-block" class="window small-top-margin book-style-large">
+  <div id="books-label" class="mouse-over-default smaller-font">List of your books</div>
   <div class="books-list">
-    <div id="books" class="books mouse-over-default">
-      <div class="book" *ngFor="let book of books" (click)="event(book)">
+    <div id="books" class="books">
+      <div class="book mouse-over-hand" *ngFor="let book of books" (click)="event(book)">
         <p>{{book.title}}</p>
         <p *ngFor="let author of book.authors">
           {{author.firstName}} {{author.lastName}}

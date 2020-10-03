@@ -1,0 +1,19 @@
+.section {
+  margin: 30px auto 0;
+  text-align: center;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #7B0000;
+}
+
+.book-author {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  transition: 1s;
+
+}
+
+.book-author:hover {
+  background-color: #AFA49D;
+  transition: 1s;
+}

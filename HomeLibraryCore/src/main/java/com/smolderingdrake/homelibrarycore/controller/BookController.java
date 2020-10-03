@@ -32,9 +32,11 @@ public class BookController {
     }
 
     private List<BookModel> fetchData(final List<Book> books) {
-        return bookService.getAllBooks().stream()
+        final List<BookModel> bookModels = bookService.getAllBooks().stream()
                 .map(this::convertToBookModel)
                 .collect(Collectors.toList());
+        bookModels.forEach(this::changeDescriptionToEscapeNewLineCharacter);
+        return bookModels;
     }
 
     private BookModel convertToBookModel(final Book book) {
@@ -47,6 +49,10 @@ public class BookController {
         return authors.stream()
                 .map(authorDto::authorToAuthorModel)
                 .collect(Collectors.toList());
+    }
+
+    private void changeDescriptionToEscapeNewLineCharacter(final BookModel book) {
+        book.setDescription(book.getDescription().replace("\n", "\\n"));
     }
 
     @GetMapping("/{isbn}")

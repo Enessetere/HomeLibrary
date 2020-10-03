@@ -36,23 +36,6 @@ td{
   font-size: 19px;
 }
 
-.add-author {
-  display: inline-block;
-  background: #6A0000;
-  padding: 5px;
-  text-decoration: none;
-  font-style: italic;
-  border-radius: 5px;
-  color: #c5c5c5;
-  transition: 1s;
-}
-
-.add-author:hover {
-  transition: 1s;
-  background-color: #8A0000;
-  cursor: pointer;
-}
-
 .addition {
   text-align: right;
 }
@@ -64,32 +47,4 @@ td{
   width: 70%;
   text-align: left;
   display: inline-block;
-}
-
-.filter-input {
-  width: 50%;
-  background-color: #A89994;
-  font-family: "Book Antiqua", sans-serif;
-  font-style: italic;
-  color: #4B0000;
-  border: #380000 1px solid;
-}
-
-.filter-input:focus {
-  background-color: #AFA49D;
-}
-
-.create-author {
-  display: inline-block;
-  text-align: right;
-  width: 20%;
-}
-
-.table-block {
-  width: 60%;
-  background: #c5c5c5;
-  border: #cf3e03 double 5px;
-  border-radius: 5px;
-  padding: 30px 0;
-  margin: 20px auto 80px;
 }

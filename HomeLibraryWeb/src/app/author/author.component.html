@@ -5,11 +5,11 @@
     <span id="author_path"></span>
   </div>
 </div>
-<div id="author_display" class="author display">
-  <div id="author_name" class="author name">Author: {{author.firstName}} {{author.lastName}}</div>
-  <div id="author_details" class="author details">
-    <div id="author_description" class="author description-details label">Description:
-      <div id="author_description_text" class="author description-details"></div>
+<div id="author_display" class="window small-top-margin book-style-large">
+  <div id="author_name" class="name">Author: {{author.firstName}} {{author.lastName}}</div>
+  <div id="author_details" class="details book-style-large">
+    <div id="author_description" class="smaller-font">Description:
+      <div id="author_description_text" class="book-style-normal"></div>
     </div>
   </div>
   <div id="books" class="name books_list" *ngIf="author.books.length > 0">Books:

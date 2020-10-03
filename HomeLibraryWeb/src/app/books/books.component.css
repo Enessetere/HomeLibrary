@@ -22,25 +22,8 @@
 }
 
 .books-list {
+  margin: 20px auto 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.books-label {
-  margin: 10px auto 20px;
-  font-family: "Book Antiqua", sans-serif;
-  font-size: 19px;
-  color: #4B0000;
-  font-style: italic;
-}
-
-.book-block {
-  margin: 20px auto 80px;
-  width: 60%;
-  background: #c5c5c5;
-  border: double #cf3e03 5px;
-  border-radius: 5px;
-  padding-top: 20px;
-  padding-bottom: 50px;
 }
