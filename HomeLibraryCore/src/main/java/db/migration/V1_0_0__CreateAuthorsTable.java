@@ -13,7 +13,7 @@ public class V1_0_0__CreateAuthorsTable extends BaseJavaMigration {
                 + "idx BIGINT primary key,\n"
                 + "first_name VARCHAR(50),\n"
                 + "last_name VARCHAR(50),\n"
-                + "description VARCHAR\n"
+                + "description VARCHAR(1000)\n"
                 + ");"
         );
     }

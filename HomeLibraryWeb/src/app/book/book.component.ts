@@ -25,11 +25,18 @@ export class BookComponent implements OnInit {
     if (this.storage.getState() === undefined) {
       let isbn = '';
       this.route.params.subscribe(params => isbn = params.isbn);
-      this.service.getSingleRecord(isbn).subscribe(data => this.book.convert(Object.values(data)), err => err.log, () => this.fillPath());
+      this.service.getSingleRecord(isbn).subscribe(
+        data => this.book.convert(Object.values(data)),
+          err => err.log,
+        () => {
+          this.fillPath();
+          this.fillDescription();
+        });
     } else {
       this.book = this.storage.getState();
       this.storage.setState(undefined);
       this.fillPath();
+      this.fillDescription();
     }
   }
 
@@ -43,5 +50,9 @@ export class BookComponent implements OnInit {
 
   fillPath() {
     document.getElementById('book_path').innerHTML = this.displayService.changeDisplay(this.book.title);
+  }
+
+  fillDescription() {
+    document.getElementById('book-description').innerHTML = this.book.description.replace(/\\n/g, '<br/>');
   }
 }

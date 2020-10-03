@@ -4,14 +4,14 @@
     &#187; <span style="color: #CF3E03; font-weight: bold; font-size: 20px;">A</span>uthors
   </div>
 </div>
-<div id="table-block" class="table-block">
+<div id="table-block" class="window small-top-margin">
   <div id="filter" class="filter">
     <label for="filter_input">Filter by name: </label>
-    <input id="filter_input" class="filter-input" type="text" #filterInput placeholder="Filter"
+    <input id="filter_input" class="input" type="text" #filterInput placeholder="Filter"
            (keyup)="filter(filterInput.value)"/>
   </div>
-  <div id="create_author" class="create-author">
-    <a class="add-author" routerLink="/create_author">Create author</a>
+  <div id="create_author" class="inline">
+    <a class="button" routerLink="/create_author">Create author</a>
   </div>
   <table class="authors">
     <thead>

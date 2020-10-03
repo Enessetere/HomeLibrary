@@ -5,18 +5,18 @@
     &#187; <span style="color: #CF3E03; font-weight: bold; font-size: 20px;">C</span>reate author
   </div>
 </div>
-<form class="author-form" #authorForm="ngForm" (ngSubmit)="onClickSubmit(authorForm.value)" autocomplete="off">
-  <div id="invalid_name" class="author-error"
-       *ngIf="(authorForm.invalid && (authorForm.dirty || authorForm.touched)) || error != null">Correct parameters<br/></div>
-  <div id="global_error_message" class="author-error" *ngIf="error != null">{{error.details}}<br/><br/></div>
-  <div id="first-name-input-box" class="author-tooltip">
-    <label for="firstName">First name: </label>
+<form class="window smaller-window book-style-large book-style-normal small-top-margin" #authorForm="ngForm" (ngSubmit)="onClickSubmit(authorForm.value)" autocomplete="off">
+  <div id="invalid_name" class="validation-failed"
+       *ngIf="(authorForm.invalid && (authorForm.dirty || authorForm.touched)) || error != null">Correct parameters<br/><br/></div>
+  <div id="global_error_message" class="validation-failed" *ngIf="error != null">{{error.details}}<br/><br/></div>
+  <div id="first-name-input-box" class="tooltip">
+    <label for="firstName" class="smaller-font">First name: </label>
     <input class="input" id="firstName" type="text" name="firstName" placeholder="First name" ngModel
            minlength="2" maxlength="25"
            oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.substring(1)"
            (input)="error = null"
            autocomplete="false"/>
-    <span id="first-name-tooltip" class="author-tooltip-text">
+    <span id="first-name-tooltip" class="tooltip-text">
       <span
         *ngIf="authorForm.invalid && authorForm.form.controls.firstName.errors != null && authorForm.form.controls.firstName.errors.minlength; then failCheck else successCheck"></span> First name should be at least 2 characters long or empty<br/>
       <span
@@ -24,13 +24,13 @@
     </span>
   </div>
   <br/>
-  <div id="last-name-input-box" class="author-tooltip">
-    <label for="lastName">Last name: </label>
+  <div id="last-name-input-box" class="tooltip">
+    <label for="lastName" class="smaller-font">Last name: </label>
     <input class="input" id="lastName" type="text" name="lastName" placeholder="Last name" ngModel
            required minlength="2" maxlength="25"
            oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.substring(1)"
            (input)="error = null"/>
-    <span id="last-name-tooltip" class="author-tooltip-text">
+    <span id="last-name-tooltip" class="tooltip-text">
       <span
         *ngIf="authorForm.invalid && authorForm.form.controls.lastName.errors != null && authorForm.form.controls.lastName.errors.required != null; then failCheck else successCheck"></span> Last name cannot be empty<br/>
       <span
@@ -42,12 +42,12 @@
   <br/>
   <br/>
   <div id="description-input-box">
-    <label for="description">Description:</label><br/>
-    <textarea id="description" type="text" name="description" placeholder="Description..." class="author-description message input" ngModel
+    <label for="description" class="smaller-font">Description:</label><br/>
+    <textarea id="description" type="text" name="description" placeholder="Description..." class="message input increased-width" ngModel
               (keydown)="resize()"></textarea>
   </div>
   <br/>
-  <input class="author-save" type="submit" value="Save author" [disabled]="authorForm.invalid"/>
+  <input class="button" type="submit" value="Save author" [disabled]="authorForm.invalid"/>
 </form>
 
 

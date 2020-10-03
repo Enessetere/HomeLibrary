@@ -1,14 +1,28 @@
 <div id="navigation" class="navigate">
   <div id="path" class="web-path mouse-over-default">
-    <a class="link" routerLink="/"><span style="color: #cf3e03; font-weight: bold; font-size: 20px">H</span>ome</a> &#187;
-    <a class="link" (click)="redirect()"><span style="color: #CF3E03; font-weight: bold; font-size: 20px;">B</span>ooks</a> &#187;
+    <a class="link" routerLink="/"><span style="color: #cf3e03; font-weight: bold; font-size: 20px">H</span>ome</a>
+    &#187;
+    <a class="link" (click)="redirect()"><span style="color: #CF3E03; font-weight: bold; font-size: 20px;">B</span>ooks</a>
+    &#187;
     <span id="book_path"></span>
   </div>
 </div>
-<div>
-  <p>{{book.title}}</p>
-  <p>{{book.isbn}}</p>
-  <p>{{book.count}}</p>
-  <p>{{book.genre}}</p>
-  <p *ngFor="let author of book.authors" (click)="redirectToAuthor(author.idx)">{{author.firstName}} {{author.lastName}}</p>
+<div id="book-details" class="window small-top-margin smaller-window book-style-large mouse-over-default">
+  <div id="book-title" class="section">
+    {{book.title}}
+  </div>
+  <div id="book-data" class="section smaller-font">
+    ISBN: {{book.isbn}}<br/>
+    No of books: {{book.count}}<br/>
+    Genre: {{book.genre.toLocaleLowerCase()}}
+  </div>
+  <div id="book-description" class="section smaller-font">
+    Description:
+    <div class="book-style-normal">{{book.description}}</div>
+  </div>
+  <div id="authors" class="section book-style-normal">
+    Authors:
+    <p class="book-author" *ngFor="let author of book.authors"
+       (click)="redirectToAuthor(author.idx)">{{author.firstName}} {{author.lastName}}</p>
+  </div>
 </div>
