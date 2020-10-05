@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.ISBN;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "books")
-public class Book {
+public class Book implements Serializable {
 
     @Id
     @ISBN
@@ -33,6 +34,7 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<Author> authors;
 
+    @Column(name = "genre")
     @Enumerated(EnumType.STRING)
     private Genre genre;
 

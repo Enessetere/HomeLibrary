@@ -14,7 +14,7 @@
   <div id="book-data" class="section smaller-font">
     ISBN: {{book.isbn}}<br/>
     No of books: {{book.count}}<br/>
-    Genre: {{book.genre.toLocaleLowerCase()}}
+    Genre: {{book.genre}}
   </div>
   <div id="book-description" class="section smaller-font">
     Description:
@@ -24,5 +24,10 @@
     Authors:
     <p class="book-author" *ngFor="let author of book.authors"
        (click)="redirectToAuthor(author.idx)">{{author.firstName}} {{author.lastName}}</p>
+  </div>
+  <div id="by-genre" class="section book-style-normal">
+    <div class="book-style-normal" *ngFor="let genre of byGenre">
+      <p>{{genre.title}}</p>
+    </div>
   </div>
 </div>

@@ -13,6 +13,7 @@ import {DisplayService} from '../display.service';
 export class BookComponent implements OnInit {
 
   book = new Book();
+  byGenre: Book[];
 
   constructor(private route: ActivatedRoute,
               private service: BookService,
@@ -31,12 +32,14 @@ export class BookComponent implements OnInit {
         () => {
           this.fillPath();
           this.fillDescription();
+          this.moreByGenre();
         });
     } else {
       this.book = this.storage.getState();
       this.storage.setState(undefined);
       this.fillPath();
       this.fillDescription();
+      this.moreByGenre();
     }
   }
 
@@ -54,5 +57,10 @@ export class BookComponent implements OnInit {
 
   fillDescription() {
     document.getElementById('book-description').innerHTML = this.book.description.replace(/\\n/g, '<br/>');
+  }
+
+  moreByGenre() {
+    this.service.getByGenre(this.book.genre).subscribe(
+      (data) => this.byGenre = Object.values(data)[0]);
   }
 }

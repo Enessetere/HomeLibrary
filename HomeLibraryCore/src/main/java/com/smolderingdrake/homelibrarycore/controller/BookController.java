@@ -28,11 +28,11 @@ public class BookController {
 
     @GetMapping
     public BookModels getAllBooks() {
-        return new BookModels(fetchData(bookService.getAllBooks()));
+        return new BookModels(convertData(bookService.getAllBooks()));
     }
 
-    private List<BookModel> fetchData(final List<Book> books) {
-        final List<BookModel> bookModels = bookService.getAllBooks().stream()
+    private List<BookModel> convertData(final List<Book> books) {
+        final List<BookModel> bookModels = books.stream()
                 .map(this::convertToBookModel)
                 .collect(Collectors.toList());
         bookModels.forEach(this::changeDescriptionToEscapeNewLineCharacter);
@@ -77,5 +77,10 @@ public class BookController {
         return authorModels.stream()
                 .map(authorDto::authorModelToAuthor)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/genre")
+    public BookModels getByGenre(@RequestParam("genre") final String genre) {
+        return new BookModels(convertData(bookService.getByGenre(genre)));
     }
 }

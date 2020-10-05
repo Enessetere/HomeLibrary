@@ -10,6 +10,7 @@ import {Book} from './book';
 export class BookService {
 
   private apiUrl = `http://localhost:9081/api/books`;
+  private byGenreApiUrl = `http://localhost:9081/api/books/genre?genre=`;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -25,5 +26,9 @@ export class BookService {
 
   getSingleRecord(isbn: string) {
     return this.http.get<Book>(this.apiUrl + `/` + isbn);
+  }
+
+  getByGenre(genre: string) {
+    return this.http.get<BookModel>(this.byGenreApiUrl + genre);
   }
 }

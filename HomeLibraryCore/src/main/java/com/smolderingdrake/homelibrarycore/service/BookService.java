@@ -3,13 +3,13 @@ package com.smolderingdrake.homelibrarycore.service;
 import com.smolderingdrake.homelibrarycore.domain.Author;
 import com.smolderingdrake.homelibrarycore.domain.Book;
 import com.smolderingdrake.homelibrarycore.exception.BookException;
+import com.smolderingdrake.homelibrarycore.model.Genre;
 import com.smolderingdrake.homelibrarycore.repository.BookRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Service
@@ -54,5 +54,11 @@ public class BookService {
         return !authorService.isAuthorExisting(author);
     }
 
+    public List<Book> getByGenre(final String genre) {
+        return bookRepository.findByGenre(getEnumGenre(genre));
+    }
 
+    private Genre getEnumGenre(final String genre) {
+        return Genre.valueOf(genre);
+    }
 }
