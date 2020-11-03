@@ -61,6 +61,8 @@ export class BookComponent implements OnInit {
 
   moreByGenre() {
     this.service.getByGenre(this.book.genre).subscribe(
-      (data) => this.byGenre = Object.values(data)[0]);
+      (data) => this.byGenre = Object.values(data)[0],
+        error => console.log(error),
+      () => this.byGenre = this.byGenre.filter(book => book.title !== this.book.title));
   }
 }
