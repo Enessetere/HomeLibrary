@@ -27,14 +27,20 @@
   </div>
   <div id="by-genre" class="section book-style-normal">
     <p>More {{book.genre.toLowerCase()}} books:</p>
-    <div class="book-style-normal" *ngFor="let genre of byGenre">
-      <p>{{genre.title}}</p>
+    <div class="books-list">
+      <div class="books">
+        <div class="book mouse-over-hand" *ngFor="let book of byGenre">
+          <p>{{book.title}}</p>
+        </div>
+      </div>
     </div>
   </div>
   <div id="by-author" class="book-style-normal">
     <p>More{{authors}} books:</p>
-    <div class="book-style-normal" *ngFor="let book of byAuthor">
-      <p>{{book.title}}</p>
+    <div class="books-list books">
+      <div class="book mouse-over-hand" *ngFor="let book of byAuthor">
+        <p>{{book.title}}</p>
+      </div>
     </div>
   </div>
 </div>

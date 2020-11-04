@@ -17,3 +17,33 @@
   background-color: #AFA49D;
   transition: 1s;
 }
+
+.books {
+  display: grid;
+  grid-column-gap: 1.33%;
+  grid-template-columns: auto auto auto;
+}
+
+.book {
+  border-radius: 5px;
+  border: solid 1px #380000;
+  padding: 5px 5px;
+  font-family: "Book Antiqua", sans-serif;
+  font-size: 18px;
+  color: #4B0000;
+  font-style: italic;
+  transition: 1s;
+  background: #A89994;
+}
+
+.book:hover {
+  background: #C8B9B4;
+  transition: 1s;
+}
+
+.books-list {
+  margin: 20px auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
