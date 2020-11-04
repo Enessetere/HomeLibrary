@@ -26,8 +26,15 @@
        (click)="redirectToAuthor(author.idx)">{{author.firstName}} {{author.lastName}}</p>
   </div>
   <div id="by-genre" class="section book-style-normal">
+    <p>More {{book.genre.toLowerCase()}} books:</p>
     <div class="book-style-normal" *ngFor="let genre of byGenre">
       <p>{{genre.title}}</p>
+    </div>
+  </div>
+  <div id="by-author" class="book-style-normal">
+    <p>More{{authors}} books:</p>
+    <div class="book-style-normal" *ngFor="let book of byAuthor">
+      <p>{{book.title}}</p>
     </div>
   </div>
 </div>
