@@ -27,20 +27,12 @@
   </div>
   <div id="by-genre" class="section book-style-normal">
     <p>More {{book.genre.toLowerCase()}} books:</p>
-    <div class="books-list">
-      <div class="books">
-        <div class="book mouse-over-hand" *ngFor="let book of byGenre">
-          <p>{{book.title}}</p>
-        </div>
-      </div>
+    <div id="by-genre-carousel" class="container">
+      <app-carousel [books]="byGenre"></app-carousel>
     </div>
   </div>
   <div id="by-author" class="book-style-normal">
     <p>More{{authors}} books:</p>
-    <div class="books-list books">
-      <div class="book mouse-over-hand" *ngFor="let book of byAuthor">
-        <p>{{book.title}}</p>
-      </div>
-    </div>
+    <app-carousel [books]="byAuthor"></app-carousel>
   </div>
 </div>

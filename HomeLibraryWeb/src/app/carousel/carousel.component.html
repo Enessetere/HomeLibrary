@@ -1,0 +1,15 @@
+<div id="carousel" class="carousel">
+  <ng-container *ngFor="let book of books; let i = index">
+    <div class="slide" *ngIf="i === currentSlide">
+      <div>
+        {{book.title}}
+      </div>
+    </div>
+  </ng-container>
+  <button class="control prev" (click)="onPreviousClick()">
+    <span class="arrow left"></span>
+  </button>
+  <button class="control next" (click)="onNextClick()">
+    <span class="arrow right"></span>
+  </button>
+</div>

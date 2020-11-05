@@ -15,6 +15,7 @@ import {AuthorCreatedComponent} from './author-created/author-created.component'
 import { BooksComponent } from './books/books.component';
 import { BookComponent } from './book/book.component';
 import { BookFormComponent } from './book-form/book-form.component';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { BookFormComponent } from './book-form/book-form.component';
     AuthorCreatedComponent,
     BooksComponent,
     BookComponent,
-    BookFormComponent
+    BookFormComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
