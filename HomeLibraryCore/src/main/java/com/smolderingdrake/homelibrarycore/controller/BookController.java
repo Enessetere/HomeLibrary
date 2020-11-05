@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,5 +83,16 @@ public class BookController {
     @GetMapping("/genre")
     public BookModels getByGenre(@RequestParam("genre") final String genre) {
         return new BookModels(convertData(bookService.getByGenre(genre)));
+    }
+
+    @GetMapping("/authors")
+    public BookModels getByAuthors(@RequestParam("authors") String idx) {
+        return new BookModels(convertData(bookService.getByAuthors(extractIdx(idx))));
+    }
+
+    private List<Long> extractIdx(String idx) {
+        return Arrays.stream(idx.split("-"))
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
     }
 }

@@ -36,7 +36,7 @@ export class BookService {
 
   getByAuthor(authors: Author[]) {
     let authorsList = '';
-    authors.forEach(author => authorsList += author.idx + `&`);
+    authors.forEach(author => authorsList += author.idx + `-`);
     return this.http.get<BookModel>(this.byAuthorApiUrl + authorsList.slice(0, authorsList.length - 1));
   }
 }

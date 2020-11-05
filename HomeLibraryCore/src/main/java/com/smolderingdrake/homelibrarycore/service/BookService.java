@@ -8,7 +8,11 @@ import com.smolderingdrake.homelibrarycore.repository.BookRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.Objects.nonNull;
 
@@ -60,5 +64,18 @@ public class BookService {
 
     private Genre getEnumGenre(final String genre) {
         return Genre.valueOf(genre);
+    }
+
+    public List<Book> getByAuthors(final List<Long> authorsIdx) {
+        return getAuthorsByIdx(authorsIdx).stream()
+                .map(bookRepository::findByAuthorsContains)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
+
+    private List<Author> getAuthorsByIdx(List<Long> authorsIdx) {
+        return authorsIdx.stream()
+                .map(authorService::getByIdx)
+                .collect(Collectors.toList());
     }
 }
