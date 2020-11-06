@@ -27,13 +27,13 @@
   </div>
   <div id="by-genre" class="section book-style-normal">
     <p>More {{book.genre.toLowerCase()}} books:</p>
-    <div id="by-genre-carousel" class="container">
+    <div id="by-genre-carousel" class="container" *ngIf="byGenre.length !== 0">
       <app-carousel [books]="byGenre"></app-carousel>
     </div>
   </div>
   <div id="by-author" class="book-style-normal">
     <p>More{{authors}} books:</p>
-    <div id="by-author-carousel" class="container">
+    <div id="by-author-carousel" class="container" *ngIf="byAuthor.length !== 0">
       <app-carousel [books]="byAuthor"></app-carousel>
     </div>
   </div>

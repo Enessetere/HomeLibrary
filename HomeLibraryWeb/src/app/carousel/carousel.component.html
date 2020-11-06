@@ -1,15 +1,22 @@
 <div id="carousel" class="carousel">
   <ng-container *ngFor="let book of books; let i = index">
     <div class="slide" *ngIf="i === currentSlide">
-      <div>
-        {{book.title}}
+      <div id="book-template" class="book-template smaller-font">
+        <img src="favicon.ico" class="book-image" alt="book_image">
+        <div id="book-details" class="book-details">
+          Title: <b>{{book.title}}</b><br/>
+          Authors:<br/>
+          <span *ngFor="let author of book.authors">
+            <b>{{author.firstName}} {{author.lastName}}</b><br/>
+          </span>
+        </div>
       </div>
     </div>
   </ng-container>
-  <button class="control prev" (click)="onPreviousClick()">
+  <button id="previous" class="control prev" (click)="onPreviousClick()" *ngIf="books.length !== 1">
     <span class="arrow left"></span>
   </button>
-  <button class="control next" (click)="onNextClick()">
+  <button id="next" class="control next" (click)="onNextClick()" *ngIf="books.length !== 1">
     <span class="arrow right"></span>
   </button>
 </div>

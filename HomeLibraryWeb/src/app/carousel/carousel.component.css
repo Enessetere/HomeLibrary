@@ -4,6 +4,7 @@
 
 .carousel {
   position: relative;
+  align-content: end;
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -70,4 +71,27 @@
 
 .right {
   transform: rotate(225deg);
+}
+
+.book-template {
+  border: rgb(123,0,0) 1px solid;
+  border-radius: 0.5em;
+  margin: 10px auto;
+  padding: 0.5em;
+  height: 150px;
+  width: 300px;
+  display: flex;
+}
+
+.book-image {
+  width: 20%;
+  height: 100px;
+  margin: auto;
+}
+
+.book-details {
+  width: 80%;
+  margin: auto;
+  align-content: center;
+  text-align: center;
 }

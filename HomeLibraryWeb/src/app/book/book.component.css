@@ -22,5 +22,6 @@
   display: block;
   height: 200px;
   width: 500px;
-  padding: 2em;
+  margin: auto;
+  padding: 10px;
 }
